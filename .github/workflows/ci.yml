@@ -1,0 +1,99 @@
+# What each job proves:
+#   test    - the test suite passes on Linux and macOS across Python 3.11-3.14
+#             (Linux also runs the privacy scans in scripts/check.sh).
+#   offline - `moatleak scan` works with no network at all (run inside an
+#             empty network namespace) and gives the same result as with network.
+#   build   - sdist and wheel build, with SHA256SUMS, uploaded as an artifact.
+#
+# Publishing and releases are deliberately NOT automated: no publish step,
+# no release creation, no secrets. Releases are made by hand.
+name: ci
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        python: ['3.11', '3.12', '3.13', '3.14']
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e '.[dev]'
+      # There is no .venv in CI, so scripts/check.sh falls back to `python3`,
+      # which is the setup-python interpreter on both runners.
+      # check.sh needs bash >= 4 and git ls-files; macOS ships bash 3.2,
+      # so macOS runs pytest directly.
+      - name: Tests and privacy scans (Linux)
+        if: runner.os == 'Linux'
+        run: bash scripts/check.sh
+      - name: Tests (macOS)
+        if: runner.os == 'macOS'
+        run: python -m pytest -q
+
+  offline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+      - name: Build a synthetic home from the repo fixtures
+        run: |
+          H="$RUNNER_TEMP/home"
+          mkdir -p "$H"
+          cp -r tests/fixtures/hermes "$H/.hermes"
+          cp -r tests/fixtures/claude "$H/.claude"
+      # Ubuntu 24.04 restricts unprivileged user namespaces via AppArmor;
+      # lift that so `unshare -rn` (new, empty network namespace) works.
+      - name: Scan with no network
+        run: |
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+          H="$RUNNER_TEMP/home"
+          unshare -rn moatleak scan --home "$H" --out "$RUNNER_TEMP/out" | tee "$RUNNER_TEMP/scan.txt"
+          test -s "$RUNNER_TEMP/out/report.html"
+          test -s "$RUNNER_TEMP/out/ledger.csv"
+          test -s "$RUNNER_TEMP/out/summary.json"
+          grep -F "No network calls were made." "$RUNNER_TEMP/scan.txt"
+      - name: Same scan with network gives the same summary
+        run: |
+          H="$RUNNER_TEMP/home"
+          moatleak scan --home "$H" --out "$RUNNER_TEMP/out-net"
+          cmp "$RUNNER_TEMP/out/summary.json" "$RUNNER_TEMP/out-net/summary.json"
+
+  build:
+    runs-on: ubuntu-latest
+    needs: [test, offline]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Build sdist and wheel
+        run: |
+          python -m pip install --upgrade pip build
+          python -m build
+          cd dist && sha256sum * > SHA256SUMS
+      - uses: actions/upload-artifact@v7
+        with:
+          name: dist
+          path: dist/

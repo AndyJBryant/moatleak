@@ -1,0 +1,53 @@
+id = "azure"
+display_name = "Azure"
+openrouter_names = ["Azure"]
+openrouter_slug = "azure"
+aliases = []
+legal_entity = "Microsoft Corporation"
+parent = "Microsoft Corporation"
+parent_id = "microsoft"
+parent_display_name = "Microsoft"
+ultimate_parent_country = "US"
+hq = { country = "US", subdivision = "US-WA" }
+serving_regions = []
+cloud_host = "self"
+legal_regimes = ["US-CLOUD-ACT", "US-FISA-702"]
+retention = "unknown"
+recognisable = true
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://www.microsoft.com/en-us/legal/terms-of-use?oneroute=true"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "One Microsoft Way, Redmond, WA 98052-6399"
+
+[[sources]]
+url = "https://www.microsoft.com/en-us/legal/terms-of-use?oneroute=true"
+claim = "parent"
+checked = "2026-10-07"
+evidence = "One Microsoft Way, Redmond, WA 98052-6399"
+
+[[sources]]
+url = "https://www.microsoft.com/en-us/legal/terms-of-use?oneroute=true"
+claim = "parent_id"
+checked = "2026-10-07"
+evidence = "One Microsoft Way, Redmond, WA 98052-6399"
+
+[[sources]]
+url = "https://www.microsoft.com/en-us/legal/terms-of-use?oneroute=true"
+claim = "ultimate_parent_country"
+checked = "2026-10-07"
+evidence = "One Microsoft Way, Redmond, WA 98052-6399"
+
+[[sources]]
+url = "https://www.microsoft.com/en-us/legal/terms-of-use?oneroute=true"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "One Microsoft Way, Redmond, WA 98052-6399"
+
+[[sources]]
+url = "https://learn.microsoft.com/en-us/legal/cognitive-services/openai/data-privacy"
+claim = "cloud_host"
+checked = "2026-10-07"
+evidence = "Microsoft hosts the Models sold by Azure in Microsoft's Azure environment"

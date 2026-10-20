@@ -1,0 +1,47 @@
+id = "wafer"
+display_name = "Wafer"
+openrouter_names = ["Wafer"]
+openrouter_slug = "wafer"
+aliases = []
+legal_entity = "Wafer, Inc."
+parent = "Wafer, Inc."  # independent
+parent_id = "wafer"  # independent
+parent_display_name = "Wafer"
+ultimate_parent_country = "US"
+hq = { country = "US" }
+serving_regions = []
+cloud_host = "unknown"
+legal_regimes = ["US-CLOUD-ACT", "US-FISA-702"]
+retention = "unknown"
+recognisable = false
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://www.wafer.ai/terms"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "services offered by Wafer, Inc."
+
+[[sources]]
+url = "https://www.wafer.ai/terms"
+claim = "parent"
+checked = "2026-10-07"
+evidence = "services offered by Wafer, Inc."
+
+[[sources]]
+url = "https://www.wafer.ai/terms"
+claim = "parent_id"
+checked = "2026-10-07"
+evidence = "services offered by Wafer, Inc."
+
+[[sources]]
+url = "https://www.wafer.ai/terms"
+claim = "ultimate_parent_country"
+checked = "2026-10-07"
+evidence = "governed by the laws of the State of Delaware, USA"
+
+[[sources]]
+url = "https://openrouter.ai/api/v1/providers"
+claim = "hq"
+checked = "2026-10-08"
+evidence = "\"headquarters\": \"US\""

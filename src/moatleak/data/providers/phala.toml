@@ -1,0 +1,28 @@
+id = "phala"
+display_name = "Phala (RedPill)"
+openrouter_names = ["Phala"]
+openrouter_slug = "phala"
+aliases = []
+legal_entity = "Hashforest Technology LLC"
+parent = "unknown"
+parent_id = "unknown"
+ultimate_parent_country = "unknown"
+hq = { country = "US" }
+serving_regions = []
+cloud_host = "unknown"
+legal_regimes = ["US-CLOUD-ACT", "US-FISA-702"]
+retention = "unknown"
+recognisable = false
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://redpill.ai/privacy"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "RedPill (redpill.ai) by Hashforest Technology LLC"
+
+[[sources]]
+url = "https://openrouter.ai/api/v1/providers"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "OpenRouter provider catalogue hq field"

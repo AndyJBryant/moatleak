@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>$title</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#E4E2DA;color:#14151F;font-family:-apple-system,"Segoe UI",Inter,Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.5}
+.solo *{animation:none!important}
+main{max-width:760px;margin:0 auto;padding:28px 18px 64px}
+h1{font-size:34px;line-height:1.1;letter-spacing:-1px;margin:0 0 6px}
+h2{font-size:24px;margin:40px 0 12px}
+h3{font-size:17px;margin:22px 0 8px}
+.period{font-weight:600;margin:0 0 14px}
+.headlines{padding-left:20px}.headlines li{margin:0 0 10px;font-size:17px}
+small{display:block;color:#5b5d69;font-size:12px;line-height:1.35}
+.earlier,.versions{color:#5b5d69;font-size:14px}
+.empty{font-size:18px}
+figure.card{margin:18px 0;background:#F6F4EE;box-shadow:0 8px 30px rgba(20,21,31,.18);border-radius:10px;overflow:hidden}
+figure.card svg{display:block;width:100%;max-width:100%;height:auto}
+figcaption{padding:8px 14px;font-size:13px;color:#5b5d69}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px;background:#F6F4EE}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #d6d3c8;vertical-align:top}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+a{color:#1f5fbf}
+.cta{display:block;margin:40px 0 0;padding:18px;text-align:center;background:#14151F;color:#fff;border-radius:10px;font-weight:800;font-size:20px;text-decoration:none}
+.pending{opacity:.6}
+.card-tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:8px 14px 12px}
+.card-tools button{font:inherit;font-size:13px;font-weight:600;padding:5px 12px;border:1px solid #14151F;border-radius:6px;background:#fff;color:#14151F;cursor:pointer}
+.card-tools button:hover{background:#14151F;color:#fff}
+.card-tools .msg{font-size:12px;color:#b3261e}
+#selftest-result{margin:0;padding:12px;font:700 20px/1.3 monospace;background:#fff;color:#000;white-space:pre-wrap}
+</style></head>
+<body><main>
+$body
+</main>
+<script type="application/json" id="moatleak-payload">$payload</script>
+<script id="moatleak-export">
+(function(){
+"use strict";
+var SCALE=2;
+function cards(){return Array.prototype.slice.call(document.querySelectorAll("figure.card"));}
+function cardId(f){return f.id.replace(/^card-/,"");}
+function svgOf(f){return f.querySelector("svg");}
+function dims(svg){
+ var vb=svg.viewBox&&svg.viewBox.baseVal;
+ var w=parseFloat(svg.getAttribute("width"))||(vb&&vb.width)||1080;
+ var h=parseFloat(svg.getAttribute("height"))||(vb&&vb.height)||1350;
+ return [w,h];
+}
+function render(f){
+ return new Promise(function(resolve,reject){
+  var svg=svgOf(f),d=dims(svg),w=d[0],h=d[1];
+  var clone=svg.cloneNode(true);
+  clone.removeAttribute("style");
+  clone.setAttribute("width",w);clone.setAttribute("height",h);
+  if(!clone.getAttribute("xmlns"))clone.setAttribute("xmlns",svg.namespaceURI);
+  var xml=new XMLSerializer().serializeToString(clone);
+  var url=URL.createObjectURL(new Blob([xml],{type:"image/svg+xml;charset=utf-8"}));
+  var img=new Image();
+  img.onload=function(){
+   try{
+    var c=document.createElement("canvas");
+    c.width=Math.round(w*SCALE);c.height=Math.round(h*SCALE);
+    var ctx=c.getContext("2d");
+    ctx.scale(SCALE,SCALE);
+    ctx.drawImage(img,0,0,w,h);
+    URL.revokeObjectURL(url);
+    c.toBlob(function(b){
+     if(!b){reject(new Error("toBlob returned null"));return;}
+     resolve({blob:b,canvas:c,ctx:ctx,w:w,h:h});
+    },"image/png");
+   }catch(e){URL.revokeObjectURL(url);reject(e);}
+  };
+  img.onerror=function(){URL.revokeObjectURL(url);reject(new Error("SVG did not load as image"));};
+  img.src=url;
+ });
+}
+function download(f){
+ return render(f).then(function(r){
+  var u=URL.createObjectURL(r.blob);
+  var a=document.createElement("a");
+  a.href=u;a.download="moatleak-"+cardId(f)+".png";
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(u);},1000);
+ });
+}
+function payload(){
+ try{return JSON.parse(document.getElementById("moatleak-payload").textContent);}catch(e){return {};}
+}
+var BY_ID={"hero":"extent","hero-wide":"extent","hero-radial":"extent","receipt":"extent","sankey":"extent",
+ "footprint":"countries","passport":"countries","timeline":"growth"};
+function fmt(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,",");}
+function pct(x){var p=x*100;return p<0.5?"<1":String(Math.round(p));}
+function headlineText(f){
+ var p=payload(),hs=p.headlines||[],svg=svgOf(f);
+ var kind=svg&&svg.getAttribute("data-headline")||BY_ID[cardId(f)];
+ var i;
+ if(kind==="volume"){
+  return "In "+p.days+" days you sent "+fmt(p.total_requests)+" prompts to AI.";
+ }
+ if(kind==="regimes"){
+  var rg=(p.footprint&&p.footprint.regimes)||[];
+  if(rg.length)return pct(rg[0].share)+"% of your prompts went to companies subject to "+rg[0].name+".";
+ }else if(kind){
+  for(i=0;i<hs.length;i++)if(hs[i].kind===kind)return hs[i].text;
+ }
+ return hs.length?hs[0].text:"";
+}
+function copyText(text){
+ if(navigator.clipboard&&navigator.clipboard.writeText){
+  return navigator.clipboard.writeText(text).catch(function(){return legacyCopy(text);});
+ }
+ return legacyCopy(text);
+}
+function legacyCopy(text){
+ return new Promise(function(resolve,reject){
+  var t=document.createElement("textarea");
+  t.value=text;t.setAttribute("readonly","");
+  t.style.cssText="position:fixed;left:-9999px;top:0;opacity:0";
+  document.body.appendChild(t);t.select();
+  var ok=false;try{ok=document.execCommand("copy");}catch(e){}
+  document.body.removeChild(t);
+  ok?resolve():reject(new Error("copy failed"));
+ });
+}
+function projectUrl(){return document.body.getAttribute("data-project-url")||"";}
+function mkBtn(label){var b=document.createElement("button");b.type="button";b.textContent=label;return b;}
+function addTools(f){
+ var bar=document.createElement("div");bar.className="card-tools";
+ var dl=mkBtn("Download PNG"),cp=mkBtn("Copy text");
+ var msg=document.createElement("span");msg.className="msg";
+ function fail(e){msg.textContent="Failed: "+(e&&e.message||e);}
+ dl.addEventListener("click",function(){
+  msg.textContent="";dl.disabled=true;
+  download(f).then(function(){dl.disabled=false;},function(e){dl.disabled=false;fail(e);});
+ });
+ cp.addEventListener("click",function(){
+  msg.textContent="";
+  copyText((headlineText(f)+" "+projectUrl()).trim()).then(function(){
+   cp.textContent="Copied";setTimeout(function(){cp.textContent="Copy text";},1500);
+  },fail);
+ });
+ bar.appendChild(dl);bar.appendChild(cp);bar.appendChild(msg);
+ f.appendChild(bar);
+}
+function blank(r){
+ var seen={},n=0,gx=12,gy=10,x,y,px,key,cw=r.canvas.width,ch=r.canvas.height;
+ for(y=0;y<gy;y++)for(x=0;x<gx;x++){
+  px=r.ctx.getImageData(Math.min(cw-1,Math.floor((x+0.5)*cw/gx)),Math.min(ch-1,Math.floor((y+0.5)*ch/gy)),1,1).data;
+  key=px[0]+","+px[1]+","+px[2]+","+px[3];
+  if(!seen[key]){seen[key]=1;n++;}
+ }
+ return n<2;
+}
+function selftest(){
+ var fs=cards(),lines=[],fails=0;
+ var pre=document.createElement("pre");pre.id="selftest-result";
+ pre.textContent="SELFTEST running...";
+ document.body.insertBefore(pre,document.body.firstChild);
+ function line(f,res,err){
+  var id=cardId(f),d=dims(svgOf(f)),s=id+" "+d[0]+"x"+d[1]+" ";
+  if(err){fails++;return s+"0 FAIL "+(err.message||err);}
+  var why=null;
+  if(res.blob.size<=1024)why="blob<=1KB";
+  else if(blank(res))why="blank canvas";
+  if(why){fails++;return s+res.blob.size+" FAIL "+why;}
+  return s+res.blob.size+" ok";
+ }
+ return fs.reduce(function(p,f){
+  return p.then(function(){
+   return render(f).then(function(r){lines.push(line(f,r));},function(e){lines.push(line(f,null,e));});
+  });
+ },Promise.resolve()).then(function(){
+  var last=fails?"SELFTEST FAIL "+fails+"/"+fs.length:"SELFTEST OK "+fs.length+"/"+fs.length;
+  if(!fs.length)last="SELFTEST FAIL 0/0";
+  pre.textContent=lines.join("\n")+"\n"+last;
+  document.title=last;
+ });
+}
+function init(){
+ if(/solo=/.test(location.hash))return;
+ cards().forEach(addTools);
+ if(location.hash==="#selftest")selftest();
+}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
+})();
+</script>
+<script>
+(function(){
+ var m=location.hash.match(/solo=([\w-]+)/);
+ if(!m)return;
+ document.documentElement.classList.add('solo');
+ var f=document.getElementById('card-'+m[1]);
+ if(!f)return;
+ var n=f;
+ while(n&&n!==document.body){
+  Array.prototype.forEach.call(n.parentNode.children,function(s){if(s!==n&&s.tagName!=='SCRIPT')s.style.display='none';});
+  n=n.parentNode;
+ }
+ var main=document.querySelector('main');
+ main.style.cssText='max-width:none;margin:0;padding:0';
+ document.body.style.background='#fff';
+ f.style.cssText='margin:0;box-shadow:none;border-radius:0';
+ var s=f.querySelector('svg');
+ s.style.cssText='width:'+f.getAttribute('data-w')+'px;height:'+f.getAttribute('data-h')+'px;max-width:none';
+ var c=f.querySelector('figcaption');if(c)c.style.display='none';
+})();
+</script>
+</body></html>

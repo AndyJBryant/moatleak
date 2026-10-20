@@ -1,0 +1,47 @@
+id = "atlas-cloud"
+display_name = "Atlas Cloud"
+openrouter_names = ["AtlasCloud"]
+openrouter_slug = "atlas-cloud"
+aliases = ["Atlas Cloud", "ATLAS CLOUD AI INC."]
+legal_entity = "ATLAS CLOUD AI INC."
+parent = "ATLAS CLOUD AI INC."  # independent
+parent_id = "atlas-cloud"  # independent
+parent_display_name = "Atlas Cloud"
+ultimate_parent_country = "US"
+hq = { country = "US", subdivision = "US-NY" }
+serving_regions = []
+cloud_host = "unknown"
+legal_regimes = ["US-CLOUD-ACT", "US-FISA-702"]
+retention = "unknown"
+recognisable = false
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://www.atlascloud.ai/privacy"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "We are ATLAS CLOUD AI INC."
+
+[[sources]]
+url = "https://www.atlascloud.ai/privacy"
+claim = "parent"
+checked = "2026-10-07"
+evidence = "We are ATLAS CLOUD AI INC."
+
+[[sources]]
+url = "https://www.atlascloud.ai/privacy"
+claim = "parent_id"
+checked = "2026-10-07"
+evidence = "We are ATLAS CLOUD AI INC."
+
+[[sources]]
+url = "https://www.atlascloud.ai/privacy"
+claim = "ultimate_parent_country"
+checked = "2026-10-07"
+evidence = "a company registered in New York, United States at 1540 Broadway, New York, NY 10036"
+
+[[sources]]
+url = "https://www.atlascloud.ai/privacy"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "a company registered in New York, United States at 1540 Broadway, New York, NY 10036"

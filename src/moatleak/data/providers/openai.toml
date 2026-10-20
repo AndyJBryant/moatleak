@@ -1,0 +1,47 @@
+id = "openai"
+display_name = "OpenAI"
+openrouter_names = ["OpenAI"]
+openrouter_slug = "openai"
+aliases = []
+legal_entity = "OpenAI OpCo, LLC"
+parent = "OpenAI OpCo, LLC"  # independent
+parent_id = "openai"  # independent
+parent_display_name = "OpenAI"
+ultimate_parent_country = "US"
+hq = { country = "US", subdivision = "US-CA" }
+serving_regions = []
+cloud_host = "unknown"
+legal_regimes = ["US-CLOUD-ACT", "US-FISA-702"]
+retention = "unknown"
+recognisable = true
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://openai.com/policies/row-terms-of-use/"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "These Terms form an agreement between you and OpenAI OpCo, LLC, a Delaware company"
+
+[[sources]]
+url = "https://openai.com/policies/privacy-policy/"
+claim = "parent"
+checked = "2026-10-07"
+evidence = "OpenAI OpCo, LLC, with its registered office at 1455 Third Street, San Francisco, California 94158, United States"
+
+[[sources]]
+url = "https://openai.com/policies/privacy-policy/"
+claim = "parent_id"
+checked = "2026-10-07"
+evidence = "OpenAI OpCo, LLC, with its registered office at 1455 Third Street, San Francisco, California 94158, United States"
+
+[[sources]]
+url = "https://openai.com/policies/privacy-policy/"
+claim = "ultimate_parent_country"
+checked = "2026-10-07"
+evidence = "OpenAI OpCo, LLC, with its registered office at 1455 Third Street, San Francisco, California 94158, United States"
+
+[[sources]]
+url = "https://openai.com/policies/privacy-policy/"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "OpenAI OpCo, LLC, with its registered office at 1455 Third Street, San Francisco, California 94158, United States"

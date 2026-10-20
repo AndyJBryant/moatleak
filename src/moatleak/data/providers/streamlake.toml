@@ -1,0 +1,47 @@
+id = "streamlake"
+display_name = "StreamLake"
+openrouter_names = ["StreamLake"]
+openrouter_slug = "streamlake"
+aliases = ["STREAMLAKE PTE. LTD."]
+legal_entity = "STREAMLAKE PTE. LTD."
+parent = "Kuaishou Technology"
+parent_id = "kuaishou"
+parent_display_name = "Kuaishou"
+ultimate_parent_country = "CN"
+hq = { country = "CN" }  # OpenRouter catalogue (maintainer decision 2026-10-08); operating entity is incorporated in SG, see legal_entity
+serving_regions = []
+cloud_host = "unknown"
+legal_regimes = ["CN-NIL-ART7", "CN-DSL"]
+retention = "unknown"
+recognisable = true
+last_verified = "2026-10-08"
+
+[[sources]]
+url = "https://streamlake.ai/document/DOC/mgkchnd89grpt1961fw"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "STREAMLAKE PTE. LTD.（is a company incorporated in the Republic of Singapore"
+
+[[sources]]
+url = "https://pandaily.com/kuaishou-stream-lake-unveils-full-ai-coding-ecosystem"
+claim = "parent"
+checked = "2026-10-07"
+evidence = "Kuaishou Technology, through its enterprise technology arm StreamLake"
+
+[[sources]]
+url = "https://pandaily.com/kuaishou-stream-lake-unveils-full-ai-coding-ecosystem"
+claim = "parent_id"
+checked = "2026-10-07"
+evidence = "Kuaishou Technology, through its enterprise technology arm StreamLake"
+
+[[sources]]
+url = "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0424/2026042401899.pdf"
+claim = "ultimate_parent_country"
+checked = "2026-10-07"
+evidence = "Head Office and Principal Place of Business in the PRC"
+
+[[sources]]
+url = "https://openrouter.ai/api/v1/providers"
+claim = "hq"
+checked = "2026-10-08"
+evidence = "\"headquarters\": \"CN\""

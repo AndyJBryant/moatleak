@@ -1,0 +1,53 @@
+id = "coreweave"
+display_name = "CoreWeave"
+openrouter_names = ["CoreWeave"]
+openrouter_slug = "coreweave"
+aliases = []
+legal_entity = "CoreWeave, Inc."
+parent = "CoreWeave, Inc."  # independent
+parent_id = "coreweave"  # independent
+parent_display_name = "CoreWeave"
+ultimate_parent_country = "US"
+hq = { country = "US", subdivision = "US-NJ" }
+serving_regions = [ { region = "US", basis = "openrouter_api" } ]
+cloud_host = "unknown"
+legal_regimes = ["US-CLOUD-ACT", "US-FISA-702"]
+retention = "unknown"
+recognisable = false
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://www.sec.gov/Archives/edgar/data/1769628/000119312525085800/d935353ds8.htm"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "of CoreWeave, Inc. (“us,” “we” or the “Registrant”)"
+
+[[sources]]
+url = "https://www.sec.gov/Archives/edgar/data/1769628/000119312525085800/d935353ds8.htm"
+claim = "parent"
+checked = "2026-10-07"
+evidence = "of CoreWeave, Inc. (“us,” “we” or the “Registrant”)"
+
+[[sources]]
+url = "https://www.sec.gov/Archives/edgar/data/1769628/000119312525085800/d935353ds8.htm"
+claim = "parent_id"
+checked = "2026-10-07"
+evidence = "of CoreWeave, Inc. (“us,” “we” or the “Registrant”)"
+
+[[sources]]
+url = "https://openrouter.ai/api/v1/providers"
+claim = "serving_regions"
+checked = "2026-10-07"
+evidence = "\"name\":\"CoreWeave\""
+
+[[sources]]
+url = "https://www.coreweave.com/about-us"
+claim = "ultimate_parent_country"
+checked = "2026-10-07"
+evidence = "290 W Mt Pleasant Ave Suite 4100 Livingston, NJ 07039"
+
+[[sources]]
+url = "https://www.coreweave.com/about-us"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "290 W Mt Pleasant Ave Suite 4100 Livingston, NJ 07039"

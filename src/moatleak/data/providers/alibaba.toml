@@ -1,0 +1,53 @@
+id = "alibaba"
+display_name = "Alibaba Cloud (Model Studio / Qwen)"
+openrouter_names = ["Alibaba"]
+openrouter_slug = "alibaba"
+aliases = []
+legal_entity = "Alibaba Cloud (Singapore) Private Limited"
+parent = "Alibaba Group Holding Limited"
+parent_id = "alibaba"
+parent_display_name = "Alibaba Group"
+ultimate_parent_country = "CN"
+hq = { country = "SG" }
+serving_regions = [ { region = "SG", basis = "openrouter_api" }, { region = "CN", basis = "openrouter_api" } ]
+cloud_host = "unknown"
+legal_regimes = ["SG-PDPA", "CN-NIL-ART7", "CN-DSL"]
+retention = "unknown"
+recognisable = true
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://www.alibabacloud.com/help/en/legal/latest/alibaba-cloud-international-website-privacy-policy"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "Alibaba Cloud (Singapore) Private Limited, as the provider of the Alibaba Cloud Platform"
+
+[[sources]]
+url = "https://www.alibabacloud.com/about"
+claim = "parent"
+checked = "2026-10-07"
+evidence = "supporting Alibaba Group's businesses in retail, logistics, and finance"
+
+[[sources]]
+url = "https://en.wikipedia.org/wiki/Alibaba_Group"
+claim = "parent_id"
+checked = "2026-10-07"
+evidence = "built it into Alibaba Cloud"
+
+[[sources]]
+url = "https://en.wikipedia.org/wiki/Alibaba_Group"
+claim = "ultimate_parent_country"
+checked = "2026-10-07"
+evidence = "Yuhang District, Hangzhou, Zhejiang, China"
+
+[[sources]]
+url = "https://www.alibabacloud.com/help/en/legal/latest/alibaba-cloud-international-website-privacy-policy"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "Alibaba Cloud (Singapore) Private Limited, as the provider of the Alibaba Cloud Platform"
+
+[[sources]]
+url = "https://openrouter.ai/api/v1/providers"
+claim = "serving_regions"
+checked = "2026-10-07"
+evidence = "OpenRouter provider catalogue serving_regions field"

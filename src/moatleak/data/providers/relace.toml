@@ -1,0 +1,22 @@
+id = "relace"
+display_name = "Relace"
+openrouter_names = ["Relace"]
+openrouter_slug = "relace"
+aliases = []
+legal_entity = "unknown"
+parent = "unknown"
+parent_id = "unknown"
+ultimate_parent_country = "unknown"
+hq = { country = "US", subdivision = "US-CA" }
+serving_regions = []
+cloud_host = "unknown"
+legal_regimes = ["US-CLOUD-ACT", "US-FISA-702"]
+retention = "unknown"
+recognisable = false
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://www.ycombinator.com/companies/relace/jobs"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "San Francisco, CA, US"

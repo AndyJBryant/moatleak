@@ -1,0 +1,41 @@
+version = "1"
+
+[classes.credential]
+label = "Credentials"
+description = "API keys, tokens, private keys, passwords"
+
+[classes.personal_data]
+label = "Personal data"
+description = "Email addresses, phone numbers, national and passport identifiers"
+
+[classes.financial]
+label = "Financial details"
+description = "Payment card numbers, bank account numbers, financial records"
+
+[classes.health]
+label = "Health information"
+description = "Medical conditions, treatment, health records"
+
+[classes.legal]
+label = "Legal matters"
+description = "Contracts, disputes, legal advice and proceedings"
+
+[classes.client_confidential]
+label = "Client-confidential material"
+description = "Non-public information belonging to clients or employers"
+
+[classes.source_code]
+label = "Source code"
+description = "Program code and technical implementation detail"
+
+[classes.infrastructure]
+label = "Infrastructure details"
+description = "Internal hostnames, private network addresses, deployment topology"
+
+[classes.hr_third_party]
+label = "HR / third-party personal matters"
+description = "Personal matters about employees or other third parties"
+
+[classes.none]
+label = "Nothing sensitive detected"
+description = "No sensitive category identified"

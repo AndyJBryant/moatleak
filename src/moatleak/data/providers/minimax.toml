@@ -1,0 +1,34 @@
+id = "minimax"
+display_name = "MiniMax"
+openrouter_names = ["Minimax"]
+openrouter_slug = "minimax"
+aliases = []
+legal_entity = "Nanonoble Pte. Ltd."
+parent = "unknown"
+parent_id = "unknown"
+ultimate_parent_country = "unknown"
+hq = { country = "SG" }
+serving_regions = [ { region = "US", basis = "openrouter_api" } ]
+cloud_host = "unknown"
+legal_regimes = ["SG-PDPA"]
+retention = "unknown"
+recognisable = false
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://www.minimax.io/platform/protocol/privacy-policy"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "Nanonoble Pte. Ltd. with a registered address at 152 Beach Road, #14-02 Gateway East, Singapore (189721)"
+
+[[sources]]
+url = "https://www.minimax.io/platform/protocol/privacy-policy"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "152 Beach Road, #14-02 Gateway East, Singapore (189721)"
+
+[[sources]]
+url = "https://openrouter.ai/api/v1/providers"
+claim = "serving_regions"
+checked = "2026-10-07"
+evidence = "OpenRouter provider catalogue serving_regions field"

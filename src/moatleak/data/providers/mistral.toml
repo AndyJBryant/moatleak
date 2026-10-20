@@ -1,0 +1,47 @@
+id = "mistral"
+display_name = "Mistral AI"
+openrouter_names = ["Mistral"]
+openrouter_slug = "mistral"
+aliases = []
+legal_entity = "Mistral AI"
+parent = "Mistral AI"  # independent
+parent_id = "mistral"  # independent
+parent_display_name = "Mistral AI"
+ultimate_parent_country = "FR"
+hq = { country = "FR", subdivision = "FR-75" }
+serving_regions = []
+cloud_host = "unknown"
+legal_regimes = ["EU-GDPR"]
+retention = "unknown"
+recognisable = true
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://legal.mistral.ai/terms/partner-served-deployment-terms/"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "The Mistral AI Products are provided by Mistral AI, a French limited corporation"
+
+[[sources]]
+url = "https://legal.mistral.ai/terms/partner-served-deployment-terms/"
+claim = "parent"
+checked = "2026-10-07"
+evidence = "The Mistral AI Products are provided by Mistral AI, a French limited corporation"
+
+[[sources]]
+url = "https://legal.mistral.ai/terms/partner-served-deployment-terms/"
+claim = "parent_id"
+checked = "2026-10-07"
+evidence = "The Mistral AI Products are provided by Mistral AI, a French limited corporation"
+
+[[sources]]
+url = "https://legal.mistral.ai/terms/partner-served-deployment-terms/"
+claim = "ultimate_parent_country"
+checked = "2026-10-07"
+evidence = "having its registered offices at 15 rue des Halles, 75001 Paris, France"
+
+[[sources]]
+url = "https://legal.mistral.ai/terms/partner-served-deployment-terms/"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "having its registered offices at 15 rue des Halles, 75001 Paris, France"

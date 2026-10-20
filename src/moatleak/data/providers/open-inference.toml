@@ -1,0 +1,65 @@
+id = "open-inference"
+display_name = "OpenInference"
+openrouter_names = ["OpenInference"]
+openrouter_slug = "open-inference"
+aliases = ["Open Inference", "Open Research, Inc."]
+legal_entity = "Open Research, Inc."
+parent = "Open Research, Inc."   # independent
+parent_id = "open-inference"   # independent
+parent_display_name = "Open Research"
+ultimate_parent_country = "US"
+hq = { country = "US" }
+serving_regions = [ { region = "US", basis = "vendor_docs" } ]
+cloud_host = "Google Cloud Platform"
+legal_regimes = ["US-CLOUD-ACT", "US-FISA-702"]
+retention = "Zero data retention for prompt and response contents (Customer Content), processed only transiently"
+recognisable = false
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://www.openinference.ai/terms"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "Open Research, Inc., a Delaware corporation doing business as Open Inference"
+
+[[sources]]
+url = "https://www.openinference.ai/terms"
+claim = "parent"
+checked = "2026-10-07"
+evidence = "Open Research, Inc., a Delaware corporation doing business as Open Inference"
+
+[[sources]]
+url = "https://www.openinference.ai/terms"
+claim = "parent_id"
+checked = "2026-10-07"
+evidence = "Open Research, Inc., a Delaware corporation doing business as Open Inference"
+
+[[sources]]
+url = "https://www.openinference.ai/terms"
+claim = "ultimate_parent_country"
+checked = "2026-10-08"
+evidence = "Open Research, Inc., a Delaware corporation doing business as Open Inference"
+
+[[sources]]
+url = "https://www.openinference.ai/privacy"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "Open Research, Inc., a Delaware corporation doing business as Open Inference"
+
+[[sources]]
+url = "https://www.openinference.ai/privacy"
+claim = "serving_regions"
+checked = "2026-10-07"
+evidence = "Our Platform is hosted in the United States"
+
+[[sources]]
+url = "https://www.openinference.ai/privacy"
+claim = "cloud_host"
+checked = "2026-10-07"
+evidence = "Google Cloud Platform (cloud hosting and the compute on which the Services run)"
+
+[[sources]]
+url = "https://www.openinference.ai/privacy"
+claim = "retention"
+checked = "2026-10-07"
+evidence = "We operate the Services on a zero-data-retention basis with respect to the contents of your prompts and the responses generated from them"

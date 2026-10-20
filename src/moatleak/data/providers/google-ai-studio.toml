@@ -1,0 +1,53 @@
+id = "google-ai-studio"
+display_name = "Google AI Studio"
+openrouter_names = ["Google AI Studio"]
+openrouter_slug = "google-ai-studio"
+aliases = []
+legal_entity = "Google LLC"
+parent = "Alphabet Inc."
+parent_id = "alphabet"
+parent_display_name = "Alphabet"
+ultimate_parent_country = "US"
+hq = { country = "US", subdivision = "US-CA" }
+serving_regions = []
+cloud_host = "unknown"
+legal_regimes = ["US-CLOUD-ACT", "US-FISA-702"]
+retention = "unknown"
+recognisable = true
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://cloud.google.com/terms/cloud-privacy-notice"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "is controlled primarily by Google LLC"
+
+[[sources]]
+url = "https://abc.xyz/"
+claim = "parent"
+checked = "2026-10-07"
+evidence = "So we are creating a new company, called Alphabet."
+
+[[sources]]
+url = "https://abc.xyz/"
+claim = "parent_id"
+checked = "2026-10-07"
+evidence = "we are creating a new company, called Alphabet"
+
+[[sources]]
+url = "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/goog-20251231.htm"
+claim = "ultimate_parent_country"
+checked = "2026-10-07"
+evidence = "1600 Amphitheatre Parkway Mountain View"
+
+[[sources]]
+url = "https://cloud.google.com/terms/cloud-privacy-notice"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "1600 Amphitheatre Parkway Mountain View"
+
+[[sources]]
+url = "https://openrouter.ai/api/v1/providers"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "OpenRouter provider catalogue hq field"

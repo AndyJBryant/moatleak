@@ -1,0 +1,47 @@
+id = "fireworks"
+display_name = "Fireworks AI"
+openrouter_names = ["Fireworks"]
+openrouter_slug = "fireworks"
+aliases = []
+legal_entity = "Fireworks.ai, Inc."
+parent = "Fireworks.ai, Inc."  # independent
+parent_id = "fireworks"  # independent
+parent_display_name = "Fireworks AI"
+ultimate_parent_country = "US"
+hq = { country = "US", subdivision = "US-CA" }
+serving_regions = []
+cloud_host = "unknown"
+legal_regimes = ["US-CLOUD-ACT", "US-FISA-702"]
+retention = "unknown"
+recognisable = false
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://fireworks.ai/terms-of-service"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "provided by Fireworks.ai, Inc."
+
+[[sources]]
+url = "https://fireworks.ai/terms-of-service"
+claim = "parent"
+checked = "2026-10-07"
+evidence = "provided by Fireworks.ai, Inc."
+
+[[sources]]
+url = "https://fireworks.ai/terms-of-service"
+claim = "parent_id"
+checked = "2026-10-07"
+evidence = "provided by Fireworks.ai, Inc."
+
+[[sources]]
+url = "https://fireworks.ai/terms-of-service"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "Fireworks.ai, Inc. Address: 900 Concar Drive, Floor 5 San Mateo, CA 94402"
+
+[[sources]]
+url = "https://fireworks.ai/terms-of-service"
+claim = "ultimate_parent_country"
+checked = "2026-10-07"
+evidence = "Fireworks.ai, Inc. Address: 900 Concar Drive, Floor 5 San Mateo, CA 94402"

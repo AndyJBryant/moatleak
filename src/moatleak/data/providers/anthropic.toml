@@ -1,0 +1,53 @@
+id = "anthropic"
+display_name = "Anthropic"
+openrouter_names = ["Anthropic"]
+openrouter_slug = "anthropic"
+aliases = []
+legal_entity = "Anthropic, PBC"
+parent = "Anthropic, PBC"   # independent
+parent_id = "anthropic"
+parent_display_name = "Anthropic"
+ultimate_parent_country = "US"
+hq = { country = "US", subdivision = "US-CA" }
+serving_regions = []
+cloud_host = "unknown"
+legal_regimes = ["US-CLOUD-ACT", "US-FISA-702"]
+retention = "API inputs and outputs automatically deleted from backend within 30 days (standard)"
+recognisable = true
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://www.anthropic.com/legal/commercial-terms"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "Anthropic, PBC if Customer resides anywhere else"
+
+[[sources]]
+url = "https://www.anthropic.com/legal/commercial-terms"
+claim = "parent"
+checked = "2026-10-07"
+evidence = "Anthropic, PBC if Customer resides anywhere else"
+
+[[sources]]
+url = "https://www.anthropic.com/legal/commercial-terms"
+claim = "parent_id"
+checked = "2026-10-07"
+evidence = "Anthropic, PBC if Customer resides anywhere else"
+
+[[sources]]
+url = "https://www.anthropic.com/legal/privacy"
+claim = "ultimate_parent_country"
+checked = "2026-10-07"
+evidence = "Anthropic PBC with a registered address at 548 Market St, PMB 90375, San Francisco, CA 94104 (United States)"
+
+[[sources]]
+url = "https://www.anthropic.com/legal/privacy"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "Anthropic PBC with a registered address at 548 Market St, PMB 90375, San Francisco, CA 94104 (United States)"
+
+[[sources]]
+url = "https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data"
+claim = "retention"
+checked = "2026-10-07"
+evidence = "we automatically delete inputs and outputs on our backend within 30 days of receipt or generation"

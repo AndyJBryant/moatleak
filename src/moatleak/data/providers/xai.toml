@@ -1,0 +1,47 @@
+id = "xai"
+display_name = "xAI"
+openrouter_names = ["xAI"]
+openrouter_slug = "xai"
+aliases = ["SpaceXAI","x-ai"]
+legal_entity = "SpaceXAI LLC"
+parent = "SpaceX"
+parent_id = "spacex"
+parent_display_name = "SpaceX"
+ultimate_parent_country = "US"
+hq = { country = "US" }
+serving_regions = []
+cloud_host = "unknown"
+legal_regimes = ["US-CLOUD-ACT", "US-FISA-702"]
+retention = "unknown"
+recognisable = true
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://x.ai/legal/privacy-policy"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "At SpaceXAI LLC"
+
+[[sources]]
+url = "https://x.ai/news/xai-joins-spacex"
+claim = "parent"
+checked = "2026-10-07"
+evidence = "SpaceX announced today that it has acquired xAI."
+
+[[sources]]
+url = "https://x.ai/news/xai-joins-spacex"
+claim = "parent_id"
+checked = "2026-10-07"
+evidence = "SpaceX announced today that it has acquired xAI."
+
+[[sources]]
+url = "https://openrouter.ai/api/v1/providers"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "\"name\":\"xAI\",\"slug\":\"xai\""
+
+[[sources]]
+url = "https://www.reuters.com/technology/space/musk-says-spacex-headquarters-be-starbase-texas-2024-12-13/"
+claim = "ultimate_parent_country"
+checked = "2026-10-07"
+evidence = "the SpaceX headquarters will now officially be in the city of Starbase, Texas"

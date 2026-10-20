@@ -1,0 +1,59 @@
+id = "venice"
+display_name = "Venice"
+openrouter_names = ["Venice"]
+openrouter_slug = "venice"
+aliases = ["Venice.ai"]
+legal_entity = "Venice.ai"
+parent = "Venice.ai"   # independent
+parent_id = "venice"
+parent_display_name = "Venice"
+ultimate_parent_country = "US"
+hq = { country = "US", subdivision = "US-WY" }
+serving_regions = [ { region = "US", basis = "openrouter_api" } ]
+cloud_host = "unknown"
+legal_regimes = ["US-CLOUD-ACT", "US-FISA-702"]
+retention = "No collection or retention of prompts/outputs by Venice; zero data retention with model providers (per privacy policy)"
+recognisable = false
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://venice.ai/legal/tos"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "The Service is offered by Venice.ai, located at 1309 Coffeen Ave, Ste 14343, Sheridan, WY 82801"
+
+[[sources]]
+url = "https://venice.ai/legal/tos"
+claim = "parent"
+checked = "2026-10-07"
+evidence = "The Service is offered by Venice.ai, located at 1309 Coffeen Ave, Ste 14343, Sheridan, WY 82801"
+
+[[sources]]
+url = "https://venice.ai/legal/tos"
+claim = "parent_id"
+checked = "2026-10-07"
+evidence = "The Service is offered by Venice.ai, located at 1309 Coffeen Ave, Ste 14343, Sheridan, WY 82801"
+
+[[sources]]
+url = "https://venice.ai/legal/tos"
+claim = "ultimate_parent_country"
+checked = "2026-10-07"
+evidence = "The Service is offered by Venice.ai, located at 1309 Coffeen Ave, Ste 14343, Sheridan, WY 82801"
+
+[[sources]]
+url = "https://venice.ai/legal/tos"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "The Service is offered by Venice.ai, located at 1309 Coffeen Ave, Ste 14343, Sheridan, WY 82801"
+
+[[sources]]
+url = "https://openrouter.ai/api/v1/providers"
+claim = "serving_regions"
+checked = "2026-10-07"
+evidence = '"datacenters": ["US"]'
+
+[[sources]]
+url = "https://venice.ai/legal/privacy-policy"
+claim = "retention"
+checked = "2026-10-07"
+evidence = "We do not collect or retain your Prompts or Outputs"

@@ -1,0 +1,59 @@
+id = "digitalocean"
+display_name = "DigitalOcean"
+openrouter_names = ["DigitalOcean"]
+openrouter_slug = "digitalocean"
+aliases = ["DigitalOcean Inference", "DigitalOcean Gradient"]
+legal_entity = "DigitalOcean, LLC"
+parent = "DigitalOcean Holdings, Inc."  # independent
+parent_id = "digitalocean"  # independent
+parent_display_name = "DigitalOcean"
+ultimate_parent_country = "US"
+hq = { country = "US", subdivision = "US-NY" }
+serving_regions = []
+cloud_host = "self"
+legal_regimes = ["US-CLOUD-ACT", "US-FISA-702"]
+retention = "No storage of inputs or outputs on DigitalOcean infrastructure for any models (vendor docs)"
+recognisable = true
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://www.digitalocean.com/legal/privacy-policy"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "This Privacy Policy describes how DigitalOcean, LLC and its affiliates"
+
+[[sources]]
+url = "https://d18rn0p25nwr6d.cloudfront.net/CIK-0001582961/21ac9bd2-d79c-4b65-b073-4a431b1484d5.pdf"
+claim = "parent"
+checked = "2026-10-07"
+evidence = "DigitalOcean Holdings, Inc."
+
+[[sources]]
+url = "https://d18rn0p25nwr6d.cloudfront.net/CIK-0001582961/21ac9bd2-d79c-4b65-b073-4a431b1484d5.pdf"
+claim = "parent_id"
+checked = "2026-10-07"
+evidence = "DigitalOcean Holdings, Inc."
+
+[[sources]]
+url = "https://d18rn0p25nwr6d.cloudfront.net/CIK-0001582961/21ac9bd2-d79c-4b65-b073-4a431b1484d5.pdf"
+claim = "ultimate_parent_country"
+checked = "2026-10-07"
+evidence = "101 6th Avenue, New York, New York 10013"
+
+[[sources]]
+url = "https://d18rn0p25nwr6d.cloudfront.net/CIK-0001582961/21ac9bd2-d79c-4b65-b073-4a431b1484d5.pdf"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "101 6th Avenue, New York, New York 10013"
+
+[[sources]]
+url = "https://d18rn0p25nwr6d.cloudfront.net/CIK-0001582961/21ac9bd2-d79c-4b65-b073-4a431b1484d5.pdf"
+claim = "cloud_host"
+checked = "2026-10-07"
+evidence = "Our infrastructure is offered to our customers across 16 data centers worldwide that are connected by a high-speed private backbone"
+
+[[sources]]
+url = "https://docs.digitalocean.com/products/gradient-ai-platform/details/data-privacy/"
+claim = "retention"
+checked = "2026-10-07"
+evidence = "We do not store inputs or outputs on DigitalOcean infrastructure for any models."

@@ -1,0 +1,34 @@
+id = "siliconflow"
+display_name = "SiliconFlow"
+openrouter_names = ["SiliconFlow"]
+openrouter_slug = "siliconflow"
+aliases = []
+legal_entity = "SILICONFLOW LABS PTE. LTD."
+parent = "unknown"
+parent_id = "unknown"
+ultimate_parent_country = "unknown"
+hq = { country = "SG" }
+serving_regions = [ { region = "US", basis = "openrouter_api" } ]
+cloud_host = "unknown"
+legal_regimes = ["SG-PDPA"]
+retention = "unknown"
+recognisable = false
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://docs.siliconflow.com/en/legals/terms-of-service"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "SILICONFLOW LABS PTE. LTD."
+
+[[sources]]
+url = "https://docs.siliconflow.com/en/legals/terms-of-service"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "ensure that the Platform and Services will comply with Singapore Laws"
+
+[[sources]]
+url = "https://openrouter.ai/api/v1/providers"
+claim = "serving_regions"
+checked = "2026-10-07"
+evidence = "OpenRouter provider catalogue serving_regions field"

@@ -1,0 +1,47 @@
+id = "cloudflare"
+display_name = "Cloudflare"
+openrouter_names = ["Cloudflare"]
+openrouter_slug = "cloudflare"
+aliases = []
+legal_entity = "Cloudflare, Inc."
+parent = "Cloudflare, Inc."  # independent
+parent_id = "cloudflare"  # independent
+parent_display_name = "Cloudflare"
+ultimate_parent_country = "US"
+hq = { country = "US", subdivision = "US-CA" }
+serving_regions = []
+cloud_host = "unknown"
+legal_regimes = ["US-CLOUD-ACT", "US-FISA-702"]
+retention = "unknown"
+recognisable = true
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://www.cloudflare.com/privacypolicy/"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "Cloudflare, Inc. (“Cloudflare”"
+
+[[sources]]
+url = "https://www.cloudflare.com/privacypolicy/"
+claim = "parent"
+checked = "2026-10-07"
+evidence = "Cloudflare, Inc. (United States) and its subsidiaries"
+
+[[sources]]
+url = "https://www.cloudflare.com/privacypolicy/"
+claim = "parent_id"
+checked = "2026-10-07"
+evidence = "Cloudflare, Inc. (United States) and its subsidiaries"
+
+[[sources]]
+url = "https://www.cloudflare.com/privacypolicy/"
+claim = "ultimate_parent_country"
+checked = "2026-10-07"
+evidence = "Cloudflare, Inc. (United States) and its subsidiaries"
+
+[[sources]]
+url = "https://www.sec.gov/Archives/edgar/data/1477333/000147733326000008/cloud-20260210.htm"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "San Francisco , CA"

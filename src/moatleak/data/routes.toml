@@ -1,0 +1,24 @@
+version = "2026.10.08"
+
+[makers]   # model-slug prefix -> maker display name (context only; not a provider/parent claim)
+anthropic = "Anthropic"
+deepseek = "DeepSeek"
+google = "Google"
+meta-llama = "Meta"
+minimax = "MiniMax"
+mistralai = "Mistral AI"
+moonshotai = "Moonshot AI"
+nvidia = "NVIDIA"
+openai = "OpenAI"
+openrouter = "OpenRouter"
+qwen = "Qwen"
+tencent = "Tencent"
+x-ai = "xAI"
+z-ai = "Z.ai"
+
+[[route]]
+endpoint = "api.anthropic.com"
+provider = "anthropic"
+rationale = "First-party API host; OAuth (subscription) and API keys both terminate at Anthropic."
+source = "https://platform.claude.com/docs/en/api/overview"
+evidence = "The Claude API is a RESTful API at https://api.anthropic.com that provides programmatic access to Claude models"

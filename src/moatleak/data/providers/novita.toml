@@ -1,0 +1,28 @@
+id = "novita"
+display_name = "Novita AI"
+openrouter_names = ["Novita"]
+openrouter_slug = "novita"
+aliases = []
+legal_entity = "Novita AI"
+parent = "unknown"
+parent_id = "unknown"
+ultimate_parent_country = "unknown"
+hq = { country = "US", subdivision = "US-CA" }
+serving_regions = []
+cloud_host = "unknown"
+legal_regimes = ["US-CLOUD-ACT", "US-FISA-702"]
+retention = "unknown"
+recognisable = false
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://novita.ai/legal/terms-of-service"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "a legally binding agreement made between you, whether personally or on behalf of an entity (\"you\") and Novita AI"
+
+[[sources]]
+url = "https://www.businesswire.com/news/home/20250407357556/en/Announcing-Novita-AIs-Partnership-With-vLLM-to-Advance-AI-Inference"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "SAN FRANCISCO--(BUSINESS WIRE)--Novita AI, a leading global AI cloud"

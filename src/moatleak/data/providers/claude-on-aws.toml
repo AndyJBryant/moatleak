@@ -1,0 +1,53 @@
+id = "claude-on-aws"
+display_name = "Claude Platform on AWS"
+openrouter_names = ["Claude Platform on AWS"]
+openrouter_slug = "claude-on-aws"
+aliases = []
+legal_entity = "Anthropic, PBC"
+parent = "Anthropic, PBC"
+parent_id = "anthropic"
+parent_display_name = "Anthropic"
+ultimate_parent_country = "US"
+hq = { country = "US", subdivision = "US-CA" }
+serving_regions = []
+cloud_host = "unknown"
+legal_regimes = ["US-CLOUD-ACT", "US-FISA-702"]
+retention = "unknown"
+recognisable = true
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "Anthropic operates Claude Platform on AWS."
+
+[[sources]]
+url = "https://www.anthropic.com/legal/commercial-terms"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "Anthropic, PBC if Customer resides anywhere else"
+
+[[sources]]
+url = "https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws"
+claim = "parent"
+checked = "2026-10-07"
+evidence = "Anthropic operates Claude Platform on AWS."
+
+[[sources]]
+url = "https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws"
+claim = "parent_id"
+checked = "2026-10-07"
+evidence = "Anthropic operates Claude Platform on AWS."
+
+[[sources]]
+url = "https://www.anthropic.com/legal/privacy"
+claim = "ultimate_parent_country"
+checked = "2026-10-07"
+evidence = "Anthropic PBC with a registered address at 548 Market St, PMB 90375, San Francisco, CA 94104 (United States)"
+
+[[sources]]
+url = "https://www.anthropic.com/legal/privacy"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "Anthropic PBC with a registered address at 548 Market St, PMB 90375, San Francisco, CA 94104 (United States)"

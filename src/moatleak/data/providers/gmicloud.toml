@@ -1,0 +1,40 @@
+id = "gmicloud"
+display_name = "GMI Cloud"
+openrouter_names = ["GMICloud"]
+openrouter_slug = "gmicloud"
+aliases = ["GMI Cloud", "GMI Computing US Inc."]
+legal_entity = "GMI Computing US Inc."
+parent = "unknown"
+parent_id = "unknown"
+ultimate_parent_country = "unknown"
+hq = { country = "US", subdivision = "US-CA" }
+serving_regions = [ { region = "US", basis = "openrouter_api" } ]
+cloud_host = "self"
+legal_regimes = ["US-CLOUD-ACT", "US-FISA-702"]
+retention = "unknown"
+recognisable = false
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://www.gmicloud.ai/en/terms-and-conditions"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "are the property of GMI Computing US Inc. (the “Company”)"
+
+[[sources]]
+url = "https://www.gmicloud.ai/en/blog/gmi-clouds-new-mountain-view-hq-is-open-for-business-and-pizza-nights"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "GMI Cloud has officially moved into our new headquarters in the heart of downtown Mountain View."
+
+[[sources]]
+url = "https://openrouter.ai/api/v1/providers"
+claim = "serving_regions"
+checked = "2026-10-07"
+evidence = "\"datacenters\": [\"US\"]"
+
+[[sources]]
+url = "https://www.gmicloud.ai/en/company/about"
+claim = "cloud_host"
+checked = "2026-10-07"
+evidence = "NVIDIA H100, H200, Blackwell and next-gen GPU platforms in owned data centers."

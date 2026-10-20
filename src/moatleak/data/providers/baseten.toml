@@ -1,0 +1,47 @@
+id = "baseten"
+display_name = "Baseten"
+openrouter_names = ["BaseTen"]
+openrouter_slug = "baseten"
+aliases = []
+legal_entity = "Baseten Labs, Inc."
+parent = "Baseten Labs, Inc."  # independent
+parent_id = "baseten"  # independent
+parent_display_name = "Baseten"
+ultimate_parent_country = "US"
+hq = { country = "US", subdivision = "US-CA" }
+serving_regions = []
+cloud_host = "unknown"
+legal_regimes = ["US-CLOUD-ACT", "US-FISA-702"]
+retention = "unknown"
+recognisable = false
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://www.baseten.co/terms-and-conditions"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "and Baseten Labs, Inc."
+
+[[sources]]
+url = "https://www.baseten.co/terms-and-conditions"
+claim = "parent"
+checked = "2026-10-07"
+evidence = "and Baseten Labs, Inc."
+
+[[sources]]
+url = "https://www.baseten.co/terms-and-conditions"
+claim = "parent_id"
+checked = "2026-10-07"
+evidence = "and Baseten Labs, Inc."
+
+[[sources]]
+url = "https://www.baseten.co/privacy-policy"
+claim = "ultimate_parent_country"
+checked = "2026-10-07"
+evidence = "San Francisco, CA"
+
+[[sources]]
+url = "https://www.baseten.co/privacy-policy"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "San Francisco, CA"

@@ -1,0 +1,47 @@
+id = "baidu"
+display_name = "Baidu"
+openrouter_names = ["Baidu"]
+openrouter_slug = "baidu"
+aliases = ["Baidu AI Cloud", "Baidu Qianfan"]
+legal_entity = "Baidu Holdings Limited"
+parent = "Baidu, Inc."
+parent_id = "baidu"
+parent_display_name = "Baidu"
+ultimate_parent_country = "CN"
+hq = { country = "CN", subdivision = "CN-BJ" }
+serving_regions = []
+cloud_host = "unknown"
+legal_regimes = ["CN-NIL-ART7", "CN-DSL"]
+retention = "unknown"
+recognisable = true
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://intl.cloud.baidu.com/en/doc/Agreements/s/bmesahnjh-intl-en"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "The Baidu AI Cloud entity with which you enter into a contract for purchasing or ordering products is: Baidu Holdings Limited."
+
+[[sources]]
+url = "https://baike.baidu.com/en/item/Baidu%20AI%20Cloud/978818"
+claim = "parent"
+checked = "2026-10-07"
+evidence = "Baidu AI Cloud is a cloud computing and artificial intelligence service platform under Baidu."
+
+[[sources]]
+url = "https://baike.baidu.com/en/item/Baidu%20AI%20Cloud/978818"
+claim = "parent_id"
+checked = "2026-10-07"
+evidence = "Baidu AI Cloud is a cloud computing and artificial intelligence service platform under Baidu."
+
+[[sources]]
+url = "https://ir.baidu.com/news-releases/news-release-details/baidu-inc-files-its-annual-report-form-20-f-9"
+claim = "ultimate_parent_country"
+checked = "2026-10-07"
+evidence = "Baidu, Inc., Baidu Campus, No. 10 Shangdi 10th Street, Haidian District, Beijing 100085, People's Republic of China"
+
+[[sources]]
+url = "https://ir.baidu.com/news-releases/news-release-details/baidu-inc-files-its-annual-report-form-20-f-9"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "Baidu, Inc., Baidu Campus, No. 10 Shangdi 10th Street, Haidian District, Beijing 100085, People's Republic of China"

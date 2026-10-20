@@ -1,0 +1,47 @@
+[[regime]]
+id = "US-CLOUD-ACT"
+name = "US CLOUD Act (18 U.S.C. 2713)"
+country = "US"
+summary = "US communications providers must disclose data in their possession, custody or control, even if stored outside the US."
+source = "https://www.law.cornell.edu/uscode/text/18/2713"
+evidence = "within such provider’s possession, custody, or control, regardless of whether such communication, record, or other information is located within or outside of the United States."
+
+[[regime]]
+id = "US-FISA-702"
+name = "FISA Section 702"
+country = "US"
+summary = "Allows US intelligence to target non-US persons reasonably believed to be abroad to obtain foreign intelligence information."
+source = "https://www.congress.gov/crs-product/R47477"
+evidence = "Section 702 may only be used to target non-U.S. persons who are reasonably believed to be outside the United States in order to obtain foreign intelligence information."
+
+[[regime]]
+id = "CN-NIL-ART7"
+name = "PRC National Intelligence Law, Article 7"
+country = "CN"
+summary = "Organizations and citizens must support, assist and cooperate with national intelligence efforts in accordance with law."
+source = "https://www.chinalawtranslate.com/en/national-intelligence-law-of-the-p-r-c-2017/"
+evidence = "All organizations and citizens shall support, assist, and cooperate with national intelligence efforts in accordance with law, and shall protect national intelligence work secrets they are aware of."
+
+[[regime]]
+id = "CN-DSL"
+name = "PRC Data Security Law, Articles 35-36"
+country = "CN"
+summary = "Security organs may obtain data with approval and organizations must cooperate; data transfers to foreign authorities need approval."
+source = "https://en.spp.gov.cn/2021-06/10/c_948426_2.htm"
+evidence = "Without the approval of the competent authorities of the People's Republic of China, organizations or individuals in the People's Republic of China shall not provide data stored within the territory"
+
+[[regime]]
+id = "EU-GDPR"
+name = "EU General Data Protection Regulation, Article 3"
+country = "EU"
+summary = "Applies to processing by EU-established controllers and processors, and to non-EU ones offering services to people in the EU."
+source = "https://gdpr-info.eu/art-3-gdpr/"
+evidence = "This Regulation applies to the processing of personal data of data subjects who are in the Union by a controller or processor not established in the Union"
+
+[[regime]]
+id = "SG-PDPA"
+name = "Singapore Personal Data Protection Act 2012"
+country = "SG"
+summary = "Sets a baseline standard of protection for personal data held by private-sector organisations in Singapore."
+source = "https://www.pdpc.gov.sg/overview-of-pdpa/the-legislation/personal-data-protection-act"
+evidence = "The Personal Data Protection Act (PDPA) provides a baseline standard of protection for personal data in Singapore."

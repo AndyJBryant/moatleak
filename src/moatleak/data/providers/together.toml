@@ -1,0 +1,47 @@
+id = "together"
+display_name = "Together AI"
+openrouter_names = ["Together"]
+openrouter_slug = "together"
+aliases = ["Together AI"]
+legal_entity = "Together Computer, Inc."
+parent = "Together Computer, Inc."  # independent
+parent_id = "together"  # independent
+parent_display_name = "Together AI"
+ultimate_parent_country = "US"
+hq = { country = "US", subdivision = "US-CA" }
+serving_regions = []
+cloud_host = "unknown"
+legal_regimes = ["US-CLOUD-ACT", "US-FISA-702"]
+retention = "unknown"
+recognisable = false
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://www.together.ai/terms-of-service"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "owned and operated by Together Computer, Inc., a Delaware corporation"
+
+[[sources]]
+url = "https://www.together.ai/terms-of-service"
+claim = "parent"
+checked = "2026-10-07"
+evidence = "owned and operated by Together Computer, Inc., a Delaware corporation"
+
+[[sources]]
+url = "https://www.together.ai/terms-of-service"
+claim = "parent_id"
+checked = "2026-10-07"
+evidence = "owned and operated by Together Computer, Inc., a Delaware corporation"
+
+[[sources]]
+url = "https://www.together.ai/terms-of-service"
+claim = "ultimate_parent_country"
+checked = "2026-10-07"
+evidence = "251 Rhode Island Street, Suite 200, San Francisco, CA 94103"
+
+[[sources]]
+url = "https://www.together.ai/terms-of-service"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "251 Rhode Island Street, Suite 200, San Francisco, CA 94103"

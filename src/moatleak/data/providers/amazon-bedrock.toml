@@ -1,0 +1,53 @@
+id = "amazon-bedrock"
+display_name = "Amazon Bedrock"
+openrouter_names = ["Amazon Bedrock"]
+openrouter_slug = "amazon-bedrock"
+aliases = []
+legal_entity = "Amazon Web Services, Inc."
+parent = "Amazon.com, Inc."
+parent_id = "amazon"
+parent_display_name = "Amazon"
+ultimate_parent_country = "US"
+hq = { country = "US", subdivision = "US-WA" }
+serving_regions = []
+cloud_host = "self"
+legal_regimes = ["US-CLOUD-ACT", "US-FISA-702"]
+retention = "unknown"
+recognisable = true
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://aws.amazon.com/privacy"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "Amazon Web Services, Inc. is located in the United States"
+
+[[sources]]
+url = "https://aws.amazon.com/privacy"
+claim = "parent"
+checked = "2026-10-07"
+evidence = "share personal information only as described below and with Amazon.com, Inc. and the affiliates that Amazon.com, Inc. controls"
+
+[[sources]]
+url = "https://aws.amazon.com/privacy"
+claim = "parent_id"
+checked = "2026-10-07"
+evidence = "affiliates that Amazon.com, Inc. controls"
+
+[[sources]]
+url = "https://aws.amazon.com/privacy"
+claim = "ultimate_parent_country"
+checked = "2026-10-07"
+evidence = "Amazon Web Services, Inc., 410 Terry Avenue North, Seattle, WA 98109-5210"
+
+[[sources]]
+url = "https://aws.amazon.com/privacy"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "Amazon Web Services, Inc., 410 Terry Avenue North, Seattle, WA 98109-5210"
+
+[[sources]]
+url = "https://docs.aws.amazon.com/bedrock/latest/userguide/data-protection.html"
+claim = "cloud_host"
+checked = "2026-10-07"
+evidence = "These accounts are owned and operated by the Amazon Bedrock service team."

@@ -1,0 +1,47 @@
+id = "parasail"
+display_name = "Parasail"
+openrouter_names = ["Parasail"]
+openrouter_slug = "parasail"
+aliases = []
+legal_entity = "Parasail, Inc."
+parent = "Parasail, Inc."  # independent
+parent_id = "parasail"  # independent
+parent_display_name = "Parasail"
+ultimate_parent_country = "US"
+hq = { country = "US", subdivision = "US-CA" }
+serving_regions = []
+cloud_host = "unknown"
+legal_regimes = ["US-CLOUD-ACT", "US-FISA-702"]
+retention = "unknown"
+recognisable = false
+last_verified = "2026-10-07"
+
+[[sources]]
+url = "https://parasail.io/legal/terms-of-service"
+claim = "legal_entity"
+checked = "2026-10-07"
+evidence = "\u201cWe,\u201d \u201cour,\u201d and \u201cus\u201d refers to Parasail, Inc."
+
+[[sources]]
+url = "https://parasail.io/legal/terms-of-service"
+claim = "parent"
+checked = "2026-10-07"
+evidence = "\u201cWe,\u201d \u201cour,\u201d and \u201cus\u201d refers to Parasail, Inc."
+
+[[sources]]
+url = "https://parasail.io/legal/terms-of-service"
+claim = "parent_id"
+checked = "2026-10-07"
+evidence = "\u201cWe,\u201d \u201cour,\u201d and \u201cus\u201d refers to Parasail, Inc."
+
+[[sources]]
+url = "https://parasail.io/legal/terms-of-service"
+claim = "ultimate_parent_country"
+checked = "2026-10-07"
+evidence = "Parasail, Inc. Address: 4 West 4th Avenue, San Mateo, CA 94402"
+
+[[sources]]
+url = "https://parasail.io/legal/terms-of-service"
+claim = "hq"
+checked = "2026-10-07"
+evidence = "Parasail, Inc. Address: 4 West 4th Avenue, San Mateo, CA 94402"
