@@ -18,8 +18,8 @@ covers tracked and staged files only.
 ## Ground rules
 
 - `src/` uses the standard library only. Dev tooling is pytest only.
-- Network code lives only in `src/moatleak/connectors/`. A test enforces that
-  `scan` and `sources` never import it.
+- The package contains no network code. A test enforces that no file under
+  `src/moatleak/` imports a network module.
 - Test fixtures are synthetic. No real logs, ids, prompts or paths. Emails use
   `@example.com`. Key-like strings are built at runtime by concatenation, never
   written out whole.
@@ -96,14 +96,15 @@ scripts/check.sh
 It lists providers missing from the registry, HQ and datacenter mismatches, and
 registry providers absent from the list.
 
-## Readers and connectors
+## Readers
 
 - A reader lives in `src/moatleak/readers/` and follows the `Reader` protocol there:
   `detect`, `iter_rows`, and `iter_content`. Readers are read-only and fail soft
   (a bad file must not stop the scan). `iter_content` is called only with
   `--scan-content`. Add synthetic fixtures and tests.
-- A connector lives in `src/moatleak/connectors/`. It needs explicit user consent
-  (show what will be called and ask first), and it must stay out of the scan path.
+
+Integrations that need the network or an account key are out of scope for this
+package; open an issue to discuss first.
 
 ## Licensing of contributions
 

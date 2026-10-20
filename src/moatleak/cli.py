@@ -3,7 +3,6 @@ import argparse
 import csv
 import dataclasses
 import json
-import os
 import sqlite3
 import sys
 from datetime import date
@@ -43,14 +42,6 @@ def _parser() -> argparse.ArgumentParser:
     sc.add_argument("--scan-content", action="store_true",
                     help="Also scan prompt text locally for credentials/personal data (Tier 1). "
                          "Text never leaves this machine and is never stored; only category labels are saved.")
-    co = sub.add_parser("connect", help="fetch daily activity from a router account (network)")
-    co.add_argument("service", choices=["openrouter"])
-    co.add_argument("--key-env", required=True, metavar="VAR",
-                    help="name of the environment variable holding the management key")
-    co.add_argument("--out", type=Path, default=Path("moatleak-report"))
-    co.add_argument("--date", type=_iso_date, default=None, metavar="YYYY-MM-DD")
-    co.add_argument("--yes", action="store_true", help="skip the confirmation prompt")
-    co.add_argument("--dry-run", action="store_true", help="show what would be requested; make no request")
     so = sub.add_parser("sources", help="show which AI-tool data sources are detected")
     so.add_argument("--home", type=Path, default=None)
     return p
@@ -152,56 +143,6 @@ def _sources(a) -> int:
     return 0
 
 
-def _connect(a) -> int:
-    from moatleak.connectors import openrouter as orc  # lazy: only `connect` loads network code
-    try:
-        url = orc.activity_url(a.date)
-    except orc.ConnectorError as e:
-        print(f"moatleak: {e}", file=sys.stderr)
-        return 2
-    print(f"moatleak will make ONE network request: GET {url}")
-    print(f"Authorization: OpenRouter management key from ${a.key_env} "
-          "(read from the environment; never stored or printed)")
-    if a.dry_run:
-        print(f"${a.key_env} is {'set' if os.environ.get(a.key_env, '').strip() else 'NOT set'}")
-        print("Dry run: no request was made.")
-        return 0
-    try:
-        key = orc.read_key(a.key_env)
-    except orc.ConnectorError as e:
-        print(f"moatleak: {e}", file=sys.stderr)
-        return 2
-    if not a.yes:
-        try:
-            answer = input("Proceed? [y/N] ")
-        except EOFError:
-            answer = ""
-        if answer.strip().lower() not in ("y", "yes"):
-            print("Aborted: no request was made.")
-            return 1
-    try:
-        rows = orc.rows_from_activity(orc.fetch_activity(key, date=a.date))
-    except orc.ConnectorError as e:
-        print(f"moatleak: {e}", file=sys.stderr)
-        return 1
-    try:
-        a.out.mkdir(parents=True, exist_ok=True)
-        ledger = Ledger(a.out / "ledger.db")
-        try:
-            ledger.add(rows)
-        finally:
-            ledger.db.close()
-    except (OSError, sqlite3.Error) as e:
-        return _write_fail(a.out, e)
-    days = sorted({r.ts[:10] for r in rows})
-    span = f" (first {days[0]}, last {days[-1]})" if days else ""
-    print(f"Stored {len(rows)} OpenRouter activity rows for {len(days)} days{span} "
-          f"in {a.out}/ledger.db. Run \"moatleak scan --out {a.out}\" to include them.")
-    return 0
-
-
 def main(argv: list[str] | None = None) -> int:
     a = _parser().parse_args(argv)
-    if a.cmd == "connect":
-        return _connect(a)
     return _scan(a) if a.cmd == "scan" else _sources(a)

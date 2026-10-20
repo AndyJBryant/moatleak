@@ -64,7 +64,7 @@ that are no longer in your logs (for example after rotation), `scan` prints a no
   nothing until you click them.
 - The call to action at the end of the report is a plain link whose only parameter is `?ref=moatleak`.
 
-The only network code is the opt-in `connect` command (see below).
+The package contains no network code at all.
 
 ## Verify it yourself
 
@@ -75,12 +75,12 @@ The only network code is the opt-in `connect` command (see below).
   The result is identical to a normal run. If `unshare` itself is refused (some distributions restrict unprivileged
   user namespaces), that is not evidence of network use: use a VM or container with networking disabled instead.
 - macOS: turn on airplane mode and run `moatleak scan`. Treat this as a sanity check, not proof.
-- Search the source for network modules. Matches should appear only under `src/moatleak/connectors/`:
+- Search the source for network modules; there should be no matches:
   ```
   grep -rnE "urllib|http\.client|socket" src/moatleak --include='*.py'
   ```
-  In this checkout every match is in `src/moatleak/connectors/openrouter.py`.
-- The test suite has a guard (`tests/test_no_network.py`) that fails if code outside `connectors/` imports one of a
+  In this checkout it prints nothing.
+- The test suite has a guard (`tests/test_no_network.py`) that fails if any file under `src/moatleak/` imports one of a
   listed set of network modules (`socket`, `urllib`, `http`, `ssl`, `requests` and others). `scripts/check.sh` runs the tests and a privacy scan of the tracked files.
 
 ## Content scan (opt-in)
@@ -95,22 +95,6 @@ conversations matched. The matched text is never written anywhere, and nothing l
 
 A conversation is listed under every company that handled it in the period ("handled by"). That does not prove those
 companies saw the matching text: a company that served only earlier turns may not have.
-
-## OpenRouter activity (opt-in, network)
-
-```
-export OPENROUTER_MGMT_KEY=...        # your own OpenRouter management key
-moatleak connect openrouter --key-env OPENROUTER_MGMT_KEY [--date YYYY-MM-DD] [--yes] [--dry-run] [--out DIR]
-```
-
-This is the only command that uses the network. It needs a management key, because OpenRouter's activity endpoint
-requires one. It prints the single URL it will call (`GET` on OpenRouter's `/api/v1/activity`, with `?date=` if you
-pass `--date`) and asks `Proceed? [y/N]`; `--yes` skips the question and `--dry-run` makes no request at all. The key
-is read from the named environment variable only and is never stored or printed.
-
-The response is stored in `ledger.db` as daily per-model counts (requests, tokens, serving provider). On the next
-`moatleak scan` these top up the counts from your logs: for each covered day and provider the larger of the two is used.
-Use the same `--out` for `connect` and `scan`.
 
 ## How to read the report
 
@@ -144,7 +128,6 @@ These numbers describe that one machine. Yours will differ.
 
 - Hermes (agent logs and `state.db`)
 - Claude Code (transcripts)
-- OpenRouter activity, through `moatleak connect openrouter`
 
 Other tools are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md).
 

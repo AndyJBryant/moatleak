@@ -1,12 +1,10 @@
 """Aggregate resolved ledger rows into network, footprint, growth and fragmentation metrics."""
 from collections import Counter
-import dataclasses
 from dataclasses import dataclass, field
 
 from moatleak.resolve import Resolved
 
-_DAILY_EVIDENCE = {"observed", "rule", "provider_api"}
-_ACTIVITY = "openrouter_activity"
+_DAILY_EVIDENCE = {"observed", "rule"}
 
 
 @dataclass
@@ -61,68 +59,18 @@ def dedupe(resolved: list[Resolved]) -> list[Resolved]:
             if not (r.row.source == "hermes_db" and r.row.session_ref in logged)]
 
 
-def _is_log_router(r: Resolved) -> bool:
-    return r.row.route == "router" and r.row.source != _ACTIVITY
-
-
-def _top_up(rows: list[Resolved], covered: set[str]) -> list[Resolved]:
-    """Volume rows: activity tops up per-call logs (max per covered day and provider)."""
-    logged: Counter = Counter()
-    for r in rows:
-        if _is_log_router(r) and _date(r) in covered and r.provider_id is not None:
-            logged[(_date(r), r.provider_name)] += r.row.requests
-    out: list[Resolved] = []
-    act: dict[tuple, list[Resolved]] = {}
-    for r in rows:
-        d = _date(r)
-        if d in covered and _is_log_router(r) and r.provider_id is None:
-            continue  # aggregate rows without provider: activity covers those calls
-        if r.row.source == _ACTIVITY and r.provider_id is not None:
-            act.setdefault((d, r.provider_name), []).append(r)
-        else:
-            out.append(r)
-    for key, group in act.items():
-        excess = logged[key]
-        for r in sorted(group, key=lambda x: x.row.source_ref):
-            n = r.row.requests
-            cut = min(n, excess)
-            excess -= cut
-            keep = n - cut
-            if keep <= 0:
-                continue
-            if keep == n:
-                out.append(r)
-                continue
-            row = dataclasses.replace(
-                r.row, requests=keep,
-                input_tokens=int(r.row.input_tokens * keep / n),
-                output_tokens=int(r.row.output_tokens * keep / n))
-            out.append(dataclasses.replace(r, row=row))
-    return out
-
-
 def summarise(resolved: list[Resolved]) -> Summary:
     rows = dedupe(resolved)
     s = Summary()
     if not rows:
         return s
 
-    # Activity tops up the per-call logs: per covered day and provider the volume is
-    # max(activity, logged); logged calls keep their tool, only the surplus is "Unknown tool".
-    covered = {_date(r) for r in rows if r.row.source == _ACTIVITY}
-    vol = _top_up(rows, covered) if covered else rows
+    vol = rows
     percall = [_date(r) for r in rows if r.row.route == "router" and r.row.evidence == "observed"]
-    api = [_date(r) for r in rows if r.row.evidence == "provider_api"]
-    starts = percall + api
-    start = min(starts) if starts else min(_date(r) for r in vol or rows)
+    start = min(percall) if percall else min(_date(r) for r in vol or rows)
     end = max(_date(r) for r in vol or rows)
     s.period = (start, end)
-    if covered:
-        b = min(percall) if percall else start
-        s.coverage_note = (f"Daily OpenRouter activity from {min(covered)}; "
-                           f"per-call provider data from {b}.")
-    else:
-        s.coverage_note = f"Per-call provider data from {start}."
+    s.coverage_note = f"Per-call provider data from {start}."
 
     inwin = [r for r in vol if _date(r) >= start]
     before = [r for r in vol if _date(r) < start]
@@ -182,7 +130,7 @@ def summarise(resolved: list[Resolved]) -> Summary:
 
     # Growth: all history
     for r in rows:
-        if r.row.evidence in ("observed", "provider_api") and r.provider_id is not None:
+        if r.row.evidence in ("observed",) and r.provider_id is not None:
             d = _date(r)
             if r.provider_name not in s.first_seen or d < s.first_seen[r.provider_name]:
                 s.first_seen[r.provider_name] = d

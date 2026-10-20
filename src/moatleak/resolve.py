@@ -43,8 +43,6 @@ def _tool(source: str) -> str:
         return "Hermes"
     if source == "claude_code":
         return "Claude Code"
-    if source == "openrouter_activity":
-        return "Unknown tool"  # the activity API does not say which tool made the call
     return source
 
 
@@ -79,7 +77,7 @@ def _location(row: LedgerRow, provider: dict | None):
 
 def access_method(row: LedgerRow, registry: Registry) -> str:
     """Evidence-based access label; never claims an auth mode (none is logged)."""
-    if row.endpoint == "openrouter.ai" or row.source == "openrouter_activity":
+    if row.endpoint == "openrouter.ai":
         return "OpenRouter"
     pid = registry.provider_for_endpoint(row.endpoint) if row.endpoint else None
     # "subscription" = legacy rows from older ledger.db files; resolves like "direct".

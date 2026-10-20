@@ -7,12 +7,12 @@ from pathlib import Path
 
 # "subscription" is legacy: old ledger.db files may still hold such rows.
 ROUTES = {"router", "direct", "subscription", "unknown"}
-EVIDENCE = {"observed", "provider_api", "aggregate", "rule", "unknown"}
+EVIDENCE = {"observed", "aggregate", "rule", "unknown"}
 
 
 @dataclass
 class LedgerRow:
-    source: str                 # hermes_log | hermes_db | claude_code | openrouter_activity
+    source: str                 # hermes_log | hermes_db | claude_code
     source_ref: str             # call id / requestId / composite key — never content
     ts: str                     # ISO-8601 UTC (date-only allowed for aggregates)
     route: str                  # see ROUTES

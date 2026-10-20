@@ -120,11 +120,14 @@ def test_no_network(home, tmp_path, monkeypatch):
         raise AssertionError("network")
     monkeypatch.setattr(socket, "socket", boom)
     assert _scan(home, tmp_path / "out") == 0
-    code = ("import sys; from moatleak.cli import main; "
-            f"main(['scan','--home',{str(home)!r},'--out',{str(tmp_path / 'o2')!r}]); "
-            "print('moatleak.connectors' in sys.modules)")
-    r = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True)
-    assert r.stdout.strip().splitlines()[-1] == "False", r.stderr
+    import importlib.util
+    assert importlib.util.find_spec("moatleak.connectors") is None
+
+
+def test_connect_command_removed():
+    with pytest.raises(SystemExit) as e:
+        main(["connect", "openrouter"])
+    assert e.value.code == 2
 
 
 def test_version():

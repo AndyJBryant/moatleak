@@ -1,8 +1,8 @@
-"""Guard that enforces core stdlib-only + no dynamic imports.
+"""Guard that enforces stdlib-only + no network code anywhere in src/moatleak, and no dynamic imports.
 
 Static ast.Import/ImportFrom checks catch `import socket` and `from urllib import ...`.
 Dynamic imports via __import__(), exec(), eval(), or importlib.import_module() bypass
-the static guard. This test walks the AST of every core .py file (excl. connectors) and
+the static guard. This test walks the AST of every .py file under src/moatleak and
 flags Call nodes whose func is:
   - Name: __import__, exec, eval, or import_module (bare Name from `from importlib import import_module`)
   - Attribute: importlib.import_module
@@ -15,7 +15,6 @@ import ast, pathlib
 
 CORE = pathlib.Path(__file__).parent.parent / "src" / "moatleak"
 BANNED = {"socket", "urllib", "http", "ssl", "requests", "httpx", "aiohttp", "ftplib", "smtplib"}
-ALLOWED_DIRS = {"connectors"}  # the only place network code may live
 
 def _imports(path):
     tree = ast.parse(path.read_text())
@@ -29,25 +28,18 @@ def _imports(path):
 def test_core_has_no_network_imports():
     offenders = []
     for py in CORE.rglob("*.py"):
-        if ALLOWED_DIRS & set(py.relative_to(CORE).parts):
-            continue
         bad = BANNED & set(_imports(py))
         if bad:
             offenders.append(f"{py.relative_to(CORE)}: {sorted(bad)}")
     assert not offenders, "network imports in core:\n" + "\n".join(offenders)
 
-def test_core_does_not_import_connectors():
-    for py in CORE.rglob("*.py"):
-        if "connectors" in py.relative_to(CORE).parts or py.name == "cli.py":
-            continue
-        assert "connectors" not in py.read_text(), f"{py} imports connectors"
+def test_no_connectors_package():
+    assert not (CORE / "connectors").exists()
 
 def test_core_has_no_dynamic_imports():
     """Flag dynamic imports like __import__(), exec(), eval(), importlib.import_module()."""
     offenders = []
     for py in CORE.rglob("*.py"):
-        if "connectors" in py.relative_to(CORE).parts:
-            continue
         tree = ast.parse(py.read_text())
         for node in ast.walk(tree):
             if isinstance(node, ast.Call):

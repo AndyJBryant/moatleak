@@ -138,7 +138,7 @@ def test_requested_maker(reg, model, maker):
     assert resolve(row(requested_model=model), reg).requested_maker == maker
 
 
-@pytest.mark.parametrize("src,tool", [("hermes_db", "Hermes"), ("openrouter_activity", "Unknown tool"), ("other", "other")])
+@pytest.mark.parametrize("src,tool", [("hermes_db", "Hermes"), ("other", "other")])
 def test_tool(reg, src, tool):
     assert resolve(row(source=src), reg).tool == tool
 
@@ -146,15 +146,9 @@ def test_tool(reg, src, tool):
 def test_access_method_labels(reg):
     from moatleak.resolve import access_method
     assert access_method(row(), reg) == "OpenRouter"
-    assert access_method(row(source="openrouter_activity", endpoint="unknown", route="router"), reg) == "OpenRouter"
     assert access_method(row(route="direct", endpoint="api.anthropic.com"), reg) == "Anthropic API (direct)"
     cc = access_method(row(source="claude_code", route="subscription", endpoint="api.anthropic.com"), reg)
     assert cc == "Anthropic API (direct)" and "subscription" not in cc and "OAuth" not in cc
     assert access_method(row(route="unknown", endpoint="llm.example.com"), reg) == "llm.example.com"
     assert access_method(row(route="unknown", endpoint=""), reg) == "Unknown access method"
     assert resolve(row(route="direct", endpoint="api.anthropic.com"), reg).access == "Anthropic API (direct)"
-
-
-def test_activity_row_tool_and_access(reg):
-    r = resolve(row(source="openrouter_activity", endpoint="openrouter.ai", route="router"), reg)
-    assert r.tool == "Unknown tool" and r.access == "OpenRouter"
