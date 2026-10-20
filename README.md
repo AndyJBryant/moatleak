@@ -1,5 +1,9 @@
 # moatleak
 
+moatleak is a free, open-source command-line tool. It reads the AI-tool logs already on a user's machine and shows
+which companies processed their prompts, who owns those companies and which countries they sit in. Everything runs
+locally, uses only the Python standard library, and the scan makes no network calls.
+
 Find out which companies, parent groups and countries processed your AI prompts, using logs already on your machine.
 
 ![Sample moatleak report summary](examples/sample-report/hero.png)
@@ -154,3 +158,17 @@ see [SECURITY.md](SECURITY.md).
 Code: Apache-2.0 ([LICENSE](LICENSE)). Provider registry data (`src/moatleak/data/providers/*.toml`, `regimes.toml`,
 `routes.toml`): CC BY 4.0
 ([LICENSE-DATA](LICENSE-DATA), <https://creativecommons.org/licenses/by/4.0/>).
+
+## Roadmap
+
+Planned, not yet built:
+
+- **More readers:** Codex, Cursor, LiteLLM, Continue, Aider, OpenWebUI.
+- **More connectors:** Anthropic Admin usage API (with `inference_geo`), OpenAI usage API, Bedrock / Vertex / Azure
+  endpoint regions.
+- **Optional content classification (Tier 2):** classify what kind of content left your machine (e.g. trade secret,
+  strategy), using Jev or a local model. This is strictly optional: it will ship as a separate package
+  (`moatleak-jev`), never installed or run by default, and only with an explicit flag. Because the Jev option sends
+  prompt snippets to a third-party classifier, it will strip anything the local scan flags as a credential first,
+  show exactly what would be sent (dry run) before sending anything, and list its own calls in your report like any
+  other provider. The core `moatleak` package stays offline.
