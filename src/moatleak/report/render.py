@@ -10,8 +10,8 @@ from moatleak.report.svg import period_label
 # interim link until the project site exists; plain link, no user data
 CTA_URL = "https://horizenlabs.io/?ref=moatleak"
 
-# interim link until the project site exists; used by "Copy text"
-PROJECT_URL = "https://horizenlabs.io/"
+# project site; used by "Copy text"
+PROJECT_URL = "https://moatleak.ai/"
 
 _TITLE = "moatleak · your AI inference network"
 

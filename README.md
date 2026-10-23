@@ -6,7 +6,7 @@ locally, uses only the Python standard library, and the scan makes no network ca
 
 Find out which companies, parent groups and countries processed your AI prompts, using logs already on your machine.
 
-![Sample moatleak report summary](examples/sample-report/hero.png)
+![Sample moatleak report summary](https://raw.githubusercontent.com/AndyJBryant/moatleak/main/examples/sample-report/hero.png)
 
 moatleak reads the local records your AI tools already keep, looks each serving company up in a sourced registry,
 and writes one offline HTML report. `scan` runs entirely on your machine and uses only the Python standard
@@ -14,16 +14,17 @@ library, with no dependencies.
 
 ## Quick start
 
-Needs Python 3.11 or newer on Linux or macOS. Not on PyPI yet, so install from a checkout:
+Needs Python 3.11 or newer on Linux or macOS.
 
 ```
-git clone <this repository>
-cd moatleak
-python3 -m venv .venv
-.venv/bin/pip install .
-.venv/bin/moatleak sources
-.venv/bin/moatleak scan
+pipx install moatleak
+moatleak sources
+moatleak scan
 ```
+
+[pipx](https://pipx.pypa.io/) installs command-line tools in their own environment. Without pipx, use
+`pip install moatleak` inside a virtual environment. To work on the code, install from a checkout instead: see
+[CONTRIBUTING.md](https://github.com/AndyJBryant/moatleak/blob/main/CONTRIBUTING.md).
 
 `moatleak sources` shows which data sources were detected, with row counts. `moatleak scan` writes into
 `./moatleak-report/`; open `moatleak-report/report.html` in a browser.
@@ -70,17 +71,17 @@ The package contains no network code at all.
 
 - Linux: run the scan in an empty network namespace. If anything tried to reach the network it would fail.
   ```
-  unshare -rn .venv/bin/moatleak scan --out /tmp/moatleak-offline
+  unshare -rn moatleak scan --out /tmp/moatleak-offline
   ```
   The result is identical to a normal run. If `unshare` itself is refused (some distributions restrict unprivileged
   user namespaces), that is not evidence of network use: use a VM or container with networking disabled instead.
 - macOS: turn on airplane mode and run `moatleak scan`. Treat this as a sanity check, not proof.
-- Search the source for network modules; there should be no matches:
+- In a checkout of the source: search it for network modules; there should be no matches:
   ```
   grep -rnE "urllib|http\.client|socket" src/moatleak --include='*.py'
   ```
-  In this checkout it prints nothing.
-- The test suite has a guard (`tests/test_no_network.py`) that fails if any file under `src/moatleak/` imports one of a
+  It prints nothing.
+- In a checkout of the source: the test suite has a guard (`tests/test_no_network.py`) that fails if any file under `src/moatleak/` imports one of a
   listed set of network modules (`socket`, `urllib`, `http`, `ssl`, `requests` and others). `scripts/check.sh` runs the tests and a privacy scan of the tracked files.
 
 ## Content scan (opt-in)
@@ -111,7 +112,7 @@ companies saw the matching text: a company that served only earlier turns may no
 
 ## Sample report
 
-[`examples/sample-report/`](examples/sample-report/) holds a report (`report.html`) and its PNG cards. It was built
+[`examples/sample-report/`](https://github.com/AndyJBryant/moatleak/tree/main/examples/sample-report/) holds a report (`report.html`) and its PNG cards. It was built
 from the maintainer's own logs, 22 Sep – 7 Oct 2026, with `--no-models --scan-content`. Its headlines:
 
 > 63% of your prompts were processed by companies headquartered in the United States, 36% in China.
@@ -120,7 +121,7 @@ from the maintainer's own logs, 22 Sep – 7 Oct 2026, with `--no-models --scan-
 > 7 new companies joined your network in 9 days.
 > Anthropic withheld the location of 217 of your prompts.
 
-![Sample sankey: where prompts went](examples/sample-report/sankey.png)
+![Sample sankey: where prompts went](https://raw.githubusercontent.com/AndyJBryant/moatleak/main/examples/sample-report/sankey.png)
 
 These numbers describe that one machine. Yours will differ.
 
@@ -129,18 +130,18 @@ These numbers describe that one machine. Yours will differ.
 - Hermes (agent logs and `state.db`)
 - Claude Code (transcripts)
 
-Other tools are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md).
+Other tools are welcome: see [CONTRIBUTING.md](https://github.com/AndyJBryant/moatleak/blob/main/CONTRIBUTING.md).
 
 ## Contributing and security
 
-Registry corrections, new providers and new readers: [CONTRIBUTING.md](CONTRIBUTING.md). To report a vulnerability,
-see [SECURITY.md](SECURITY.md).
+Registry corrections, new providers and new readers: [CONTRIBUTING.md](https://github.com/AndyJBryant/moatleak/blob/main/CONTRIBUTING.md). To report a vulnerability,
+see [SECURITY.md](https://github.com/AndyJBryant/moatleak/blob/main/SECURITY.md).
 
 ## Licence
 
-Code: Apache-2.0 ([LICENSE](LICENSE)). Provider registry data (`src/moatleak/data/providers/*.toml`, `regimes.toml`,
+Code: Apache-2.0 ([LICENSE](https://github.com/AndyJBryant/moatleak/blob/main/LICENSE)). Provider registry data (`src/moatleak/data/providers/*.toml`, `regimes.toml`,
 `routes.toml`): CC BY 4.0
-([LICENSE-DATA](LICENSE-DATA), <https://creativecommons.org/licenses/by/4.0/>).
+([LICENSE-DATA](https://github.com/AndyJBryant/moatleak/blob/main/LICENSE-DATA), <https://creativecommons.org/licenses/by/4.0/>).
 
 ## Roadmap
 

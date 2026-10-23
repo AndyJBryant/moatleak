@@ -46,7 +46,7 @@ def test_offline():
     for bad in ("<link", " src=", "@import", "url(http"):
         assert bad not in h
     assert CTA_URL == "https://horizenlabs.io/?ref=moatleak"
-    assert PROJECT_URL == "https://horizenlabs.io/"
+    assert PROJECT_URL == "https://moatleak.ai/"
 
 
 def test_payload_embedded_once_and_roundtrips():

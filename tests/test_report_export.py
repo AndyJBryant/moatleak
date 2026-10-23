@@ -22,9 +22,9 @@ def test_export_script_present():
     assert not re.search(r"Task \d", js) and len(js) > 1500
     assert "card-tools" in h and "selftest-result" in js and "toBlob" in js
     assert "http" not in js
-    assert h.count('data-project-url="https://horizenlabs.io/"') == 1
+    assert h.count('data-project-url="https://moatleak.ai/"') == 1
     assert re.search(r'<body[^>]* data-project-url="' + re.escape(PROJECT_URL) + '"', h)
-    assert PROJECT_URL == "https://horizenlabs.io/"
+    assert PROJECT_URL == "https://moatleak.ai/"
     assert "data-project-url" not in json.dumps(_build()[0])
 
 

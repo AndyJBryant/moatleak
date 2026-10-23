@@ -23,7 +23,7 @@ Open [`report.html`](report.html) in a browser. It is a single offline file.
 
 ## Note
 
-The call-to-action and project links in this sample currently point to Horizen Labs (horizenlabs.io) until the project site exists.
+The project link in this sample points to moatleak.ai; the call to action points to Horizen Labs (`https://horizenlabs.io/?ref=moatleak`).
 
 ## Thumbnails
 

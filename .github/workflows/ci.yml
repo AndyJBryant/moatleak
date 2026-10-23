@@ -5,8 +5,9 @@
 #             empty network namespace) and gives the same result as with network.
 #   build   - sdist and wheel build, with SHA256SUMS, uploaded as an artifact.
 #
-# Publishing and releases are deliberately NOT automated: no publish step,
-# no release creation, no secrets. Releases are made by hand.
+# Releases are published to PyPI by release.yml when a GitHub release is
+# published (trusted publishing, no stored secrets). This workflow only tests
+# and builds.
 name: ci
 
 on:

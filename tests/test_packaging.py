@@ -1,3 +1,4 @@
+import re
 import tomllib
 from pathlib import Path
 
@@ -26,3 +27,21 @@ def test_licence_files_declared_and_present():
     data = (ROOT / "LICENSE-DATA").read_text(encoding="utf-8")
     assert "Attribution 4.0 International" in data
     assert "src/moatleak/data/" in data
+
+
+def test_version_is_final_release_0_1_0():
+    v = PYPROJECT["project"]["version"]
+    assert re.fullmatch(r"\d+\.\d+\.\d+", v)
+    assert v == "0.1.0" == moatleak.__version__
+
+
+def test_project_urls_exact():
+    assert PYPROJECT["project"]["urls"] == {
+        "Homepage": "https://moatleak.ai/",
+        "Source": "https://github.com/AndyJBryant/moatleak",
+        "Issues": "https://github.com/AndyJBryant/moatleak/issues",
+    }
+
+
+def test_keywords_have_no_openrouter():
+    assert "openrouter" not in PYPROJECT["project"]["keywords"]

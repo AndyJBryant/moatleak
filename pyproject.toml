@@ -1,11 +1,11 @@
 [project]
 name = "moatleak"
-version = "0.1.0rc1"
+version = "0.1.0"
 description = "Local, offline scanner that maps which companies and countries processed your AI prompts."
 readme = "README.md"
 license = "Apache-2.0 AND CC-BY-4.0"
 license-files = ["LICENSE", "LICENSE-DATA"]
-keywords = ["ai", "privacy", "llm", "audit", "openrouter"]
+keywords = ["ai", "privacy", "llm", "audit"]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Environment :: Console",
@@ -21,6 +21,12 @@ classifiers = [
 ]
 requires-python = ">=3.11"
 dependencies = []
+
+[project.urls]
+Homepage = "https://moatleak.ai/"
+Source = "https://github.com/AndyJBryant/moatleak"
+Issues = "https://github.com/AndyJBryant/moatleak/issues"
+
 [project.scripts]
 moatleak = "moatleak.cli:main"
 [project.optional-dependencies]
