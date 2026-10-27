@@ -32,7 +32,7 @@ def test_licence_files_declared_and_present():
 def test_version_is_final_release_0_1_0():
     v = PYPROJECT["project"]["version"]
     assert re.fullmatch(r"\d+\.\d+\.\d+", v)
-    assert v == "0.1.0" == moatleak.__version__
+    assert v == "0.1.1" == moatleak.__version__
 
 
 def test_project_urls_exact():
@@ -45,3 +45,7 @@ def test_project_urls_exact():
 
 def test_keywords_have_no_openrouter():
     assert "openrouter" not in PYPROJECT["project"]["keywords"]
+
+
+def test_package_data_includes_logo_pngs():
+    assert "report/assets/*.png" in PYPROJECT["tool"]["setuptools"]["package-data"]["moatleak"]

@@ -1,19 +1,39 @@
 """Non-visual HTML sections: header, ledger, methodology, CTA."""
+import base64
+from importlib import resources
+
 from moatleak.report.svg import COLORS, country_key, esc, safe_url, fmt_int, period_label, short_date
 
-CTA_TEXT = "Deploy Sovereign AI at your company →"
 EMPTY_MESSAGE = "No AI usage with provider data was found in the scanned logs."
 
 
+_MARK = ('<svg aria-hidden="true" viewBox="0 0 22 22" width="24" height="24">'
+         '<path d="M11 11 L11 0 A11 11 0 0 1 22 11 Z" fill="#E5484D"/>'
+         '<path d="M11 11 L22 11 A11 11 0 0 1 11 22 Z" fill="#3E8EF7"/>'
+         '<path d="M11 11 L11 22 A11 11 0 0 1 0 11 Z" fill="#30A46C"/>'
+         '<path d="M11 11 L0 11 A11 11 0 0 1 11 0 Z" fill="#F5C518"/>'
+         '<circle cx="11" cy="11" r="5" fill="#14151F"/></svg>')
+
+
+def _logo_uri(name: str) -> str:
+    data = (resources.files("moatleak.report") / "assets" / name).read_bytes()
+    return "data:image/png;base64," + base64.b64encode(data).decode("ascii")
+
+
 def header(payload: dict) -> str:
-    out = ['<header id="header"><h1>Your AI inference network</h1>']
+    out = ['<header id="header">',
+           f'<div class="brand">{_MARK}<span class="brand__word">moatleak</span>'
+           '<span class="brand__by">by</span>'
+           f'<img class="brand__hl" alt="Horizen Labs" width="400" height="96" '
+           f'src="{_logo_uri("horizen-labs-logo.png")}"></div>',
+           '<h1>Your AI inference network</h1>']
     period = period_label(payload)
     if period:
         out.append(f'<p class="period">{esc(period)}</p>')
     if payload.get("empty"):
         out.append(f'<p class="empty">{esc(EMPTY_MESSAGE)}</p>')
     else:
-        out.append('<ul class="headlines">')
+        out.append('<h2 class="highlights">Highlights</h2><ul class="headlines">')
         for h in payload["headlines"]:
             foot = f'<small>{esc(h["footnote"])}</small>' if h.get("footnote") else ""
             out.append(f'<li>{esc(h["text"])}{foot}</li>')
@@ -149,4 +169,14 @@ def methodology(payload: dict) -> str:
 
 
 def cta(payload: dict, url: str) -> str:
-    return f'<section id="cta"><a href="{esc(url)}" class="cta">{esc(CTA_TEXT)}</a></section>'
+    return (
+        '<section id="cta"><div class="cta-band">'
+        '<p class="cta-by">moatleak by <img alt="Horizen Labs" width="400" height="96" '
+        f'src="{_logo_uri("horizen-labs-logo-white.png")}"></p>'
+        '<h2>Deploy Sovereign AI at your company.</h2>'
+        '<p class="cta-body">moatleak shows where your prompts go today. '
+        'Horizen Labs helps companies decide where they go next.</p>'
+        f'<p><a class="cta-btn" href="{esc(url)}" target="_blank" rel="noopener">'
+        'Get Sovereign AI at your company</a></p>'
+        '<p class="cta-small">Opens a contact form hosted by Pipedrive. '
+        'Nothing from your report is sent.</p></div></section>')

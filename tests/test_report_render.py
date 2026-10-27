@@ -8,7 +8,7 @@ from moatleak.report.render import CTA_URL, PROJECT_URL, render
 from tests.test_report_payload import _build, _rows
 from tests.test_findings import mk
 
-ORDER = ["hero", "footprint", "timeline", "story", "receipt", "sankey"]
+ORDER = ["hero", "sankey", "footprint", "timeline", "story", "receipt"]
 
 
 def _html(payload=None):
@@ -38,14 +38,17 @@ def test_no_pending_sections():
 def test_offline():
     p = _build()[0]
     h = render(p)
-    allowed = {CTA_URL, PROJECT_URL, "http://www.w3.org/2000/svg"}
+    allowed = {CTA_URL, PROJECT_URL, "http://www.w3.org/2000/svg",
+               "https://x.com/intent/post?text="}
     allowed |= {r["source"] for r in p["footprint"]["regimes"] if r["source"]}
     allowed |= {x["parent_source"] for x in p["providers"] if x["parent_source"]}
     for u in re.findall(r"https?://[^\s\"'<>)]+", h):
         assert u in allowed, u
-    for bad in ("<link", " src=", "@import", "url(http"):
+    for bad in ("<link", "@import", "url(http"):
         assert bad not in h
-    assert CTA_URL == "https://horizenlabs.io/?ref=moatleak"
+    srcs = re.findall(r' src="([^"]*)"', h)
+    assert srcs and all(v.startswith("data:image/png;base64,") for v in srcs)
+    assert CTA_URL == ("https://webforms.pipedrive.com/f/63sjQr1tj7ulYhDsCZVzLey6qBVd7pznAcP2BA5llASrPZWgQgrzcYkYVvb9YwEGnV")
     assert PROJECT_URL == "https://moatleak.ai/"
 
 
@@ -107,10 +110,33 @@ def test_methodology():
     assert "HQ-inferred" in h
 
 
-def test_cta_only_link():
+def test_cta_band():
     h = _html()
-    assert f'<a href="{CTA_URL}"' in h and "Deploy Sovereign AI at your company →" in h
-    assert "interim link until the project site" in open(render_mod.__file__).read()
+    assert '<div class="cta-band">' in h
+    assert f'href="{CTA_URL}"' in h and 'target="_blank" rel="noopener"' in h
+    assert ">Get Sovereign AI at your company</a>" in h
+    assert "Deploy Sovereign AI at your company." in h
+    assert "Opens a contact form hosted by Pipedrive. Nothing from your report is sent." in h
+    assert "moatleak shows where your prompts go today. Horizen Labs helps companies decide where they go next." in h
+    assert "Horizen Labs contact form hosted by Pipedrive" in open(render_mod.__file__).read()
+
+
+def test_header_brand_and_highlights():
+    h = _html()
+    head = h[_pos(h, "header"):h.index("</header>")]
+    assert head.index('<div class="brand">') < head.index("<h1>")
+    assert 'aria-hidden="true"' in head and 'viewBox="0 0 22 22"' in head
+    assert '<span class="brand__word">moatleak</span>' in head
+    assert '<span class="brand__by">by</span>' in head
+    assert re.search(r'<img class="brand__hl" alt="Horizen Labs" width="400" height="96" src="data:image/png;base64,', head)
+    assert head.index('<h2 class="highlights">Highlights</h2>') < head.index('<ul class="headlines">')
+
+
+def test_logo_assets_packaged():
+    from importlib import resources
+    for n in ("horizen-labs-logo.png", "horizen-labs-logo-white.png"):
+        data = (resources.files("moatleak.report") / "assets" / n).read_bytes()
+        assert data.startswith(b"\x89PNG\r\n\x1a\n")
 
 
 def test_empty_payload():
@@ -125,6 +151,7 @@ def test_empty_payload():
     h = render(p)
     assert "No AI usage with provider data was found in the scanned logs." in h
     assert 'id="methodology"' in h and 'id="cta"' in h
+    assert 'class="brand"' in h and "Highlights" not in h
     for sid in ORDER + ["ledger"]:
         assert f'id="{sid}"' not in h
 

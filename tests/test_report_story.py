@@ -110,7 +110,6 @@ def test_slide_texts():
     assert "15 Aug – 25 Sep 2026" in t[6]
     assert "Claude Code, 15 Aug to 25 Sep 2026: the provider reported the | location as not available." in t[6]
     assert "Who can legally demand them" in t[7] and "Regime 0" in t[7]
-    assert "Deploy Sovereign AI at your company →" in t[7]
 
 
 def test_no_earlier_line_when_none():
@@ -267,3 +266,48 @@ def test_centre_never_shifts_up_on_overflow():
     top, _ = story._bounds(block)
     out = story._centre(block, 5000)
     assert story._bounds(out)[0] >= top - 0.1
+
+
+def test_no_drawn_cta_on_any_slide():
+    for _cid, s in story.slides(_payload()):
+        assert "Deploy Sovereign AI" not in s
+        assert 'class="cta"' not in s
+
+
+def _content_payload(label, ncountries=1):
+    p = _payload()
+    codes = [f"C{i}" for i in range(ncountries)]
+    p["country_names"] = {c: f"Country number {i} of many" for i, c in enumerate(codes)}
+    p["content"] = {"classes": [{"category": "personal_data", "label": label, "conversations": 1234,
+                                 "companies": [{"name": f"Co{i}", "country": c} for i, c in enumerate(codes)]}]}
+    return p
+
+
+def _content_svg(p):
+    return dict(story.slides(p))["story-content"]
+
+
+@pytest.mark.parametrize("label", ["Personal data", "Credentials"])
+def test_content_note_verbatim_and_ordered(label):
+    root = _root(_content_svg(_content_payload(label, 2)))
+    note = f"{label} identified using basic heuristics; nothing was stored or sent by moatleak."
+    ts = [(float(t.get("y")), t.text or "") for t in root.iter(NS + "text")]
+    sub = min(y for y, tx in ts if tx.startswith("These conversations"))
+    head = max(y for y, tx in ts if "contained" in tx or tx.endswith(f"{label.lower()}."))
+    mid = [tx for y, tx in ts if head < y < sub]
+    assert " ".join(mid) == note
+
+
+def _content_body_bottom_and_footer_top(label, ncountries=7):
+    root = _root(_content_svg(_content_payload(label, ncountries)))
+    texts = [(float(t.get("y")), t.get("font-size")) for t in root.iter(NS + "text")]
+    footer_top = min(y for y, fs in texts if fs == "15") - 15
+    body = [(y, float(fs)) for y, fs in texts if y > 120 and fs not in ("15", "24")]
+    assert body
+    return max(y + 0.25 * fs for y, fs in body), footer_top
+
+
+def test_content_slide_fits_with_long_label_and_seven_countries():
+    bottom, footer_top = _content_body_bottom_and_footer_top(
+        "An extremely long content class label for testing")
+    assert bottom < footer_top - 10

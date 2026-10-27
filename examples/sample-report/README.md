@@ -23,11 +23,11 @@ Open [`report.html`](report.html) in a browser. It is a single offline file.
 
 ## Note
 
-The project link in this sample points to moatleak.ai; the call to action points to Horizen Labs (`https://horizenlabs.io/?ref=moatleak`).
+The project link in this sample points to moatleak.ai; the call to action opens the Horizen Labs contact form, hosted by Pipedrive.
 
 ## Thumbnails
 
 [![Hero card](hero.png)](report.html)
 [![Sankey card](sankey.png)](report.html)
 
-Other cards exported from the same report: [`hero-wide.png`](hero-wide.png), [`hero-radial.png`](hero-radial.png), [`footprint.png`](footprint.png), [`story-content.png`](story-content.png).
+Other cards exported from the same report: [`hero-wide.png`](hero-wide.png), [`hero-radial.png`](hero-radial.png), [`footprint.png`](footprint.png), [`timeline.png`](timeline.png), [`story-content.png`](story-content.png).

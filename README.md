@@ -63,7 +63,7 @@ that are no longer in your logs (for example after rotation), `scan` prints a no
 - It never stores prompt text. The ledger holds call metadata; with `--scan-content` it also holds category labels.
 - The HTML report loads nothing remote: no fonts, scripts or images. The source links in it are plain links that do
   nothing until you click them.
-- The call to action at the end of the report is a plain link whose only parameter is `?ref=moatleak`.
+- The call to action at the end of the report is a plain link to a contact form hosted by Pipedrive. Nothing from your report is added to it.
 
 The package contains no network code at all.
 
@@ -142,6 +142,8 @@ see [SECURITY.md](https://github.com/AndyJBryant/moatleak/blob/main/SECURITY.md)
 Code: Apache-2.0 ([LICENSE](https://github.com/AndyJBryant/moatleak/blob/main/LICENSE)). Provider registry data (`src/moatleak/data/providers/*.toml`, `regimes.toml`,
 `routes.toml`): CC BY 4.0
 ([LICENSE-DATA](https://github.com/AndyJBryant/moatleak/blob/main/LICENSE-DATA), <https://creativecommons.org/licenses/by/4.0/>).
+
+The Horizen Labs name and logo are trademarks of Horizen Labs and are not covered by the Apache-2.0 licence.
 
 ## Roadmap
 

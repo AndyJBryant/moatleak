@@ -64,13 +64,15 @@ def test_coverage_note_in_every_card(built):
 
 def test_offline(built):
     p, reg, _, html = built
-    allowed = {R.CTA_URL, R.PROJECT_URL, "http://www.w3.org/2000/svg"}
+    allowed = {R.CTA_URL, R.PROJECT_URL, "http://www.w3.org/2000/svg",
+               "https://x.com/intent/post?text="}
     allowed |= {v for k, v in _strings(p) if k in ("source", "parent_source") and v.startswith("http")}
     allowed |= {s for prov in reg.providers.values() for s in [prov.get("parent_source")] if s}
     import html as H
     for u in re.findall(r"https?://[^\s\"'<>)]+", html):
         assert H.unescape(u) in allowed, u
-    assert "<link" not in html and " src=" not in html and "@import" not in html
+    assert "<link" not in html and "@import" not in html
+    assert all(v.startswith("data:image/png;base64,") for v in re.findall(r' src="([^"]*)"', html))
     assert "url(http" not in html
 
 

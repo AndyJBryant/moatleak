@@ -1,6 +1,6 @@
 [project]
 name = "moatleak"
-version = "0.1.0"
+version = "0.1.1"
 description = "Local, offline scanner that maps which companies and countries processed your AI prompts."
 readme = "README.md"
 license = "Apache-2.0 AND CC-BY-4.0"
@@ -35,4 +35,4 @@ dev = ["pytest>=8"]
 requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 [tool.setuptools.package-data]
-moatleak = ["report/*.html", "data/*.toml", "data/providers/*.toml"]
+moatleak = ["report/*.html", "data/*.toml", "data/providers/*.toml", "report/assets/*.png"]

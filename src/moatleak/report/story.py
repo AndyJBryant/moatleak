@@ -368,9 +368,6 @@ def _s_regimes(payload):
         if len(regs) > 5:
             out.append(_t(_X0, y, f"+{len(regs) - 5} more", 26, 600, _SOFT))
             y += 50
-        out.append(f'<rect class="cta" x="{_X0}" y="{y + 20}" width="{_COLW}" height="110" rx="24" fill="#FFFFFF"/>'
-                   + _t(_X0 + _COLW / 2, y + 87, "Deploy Sovereign AI at your company →", 36, 800,
-                        svg.INK, "middle"))
         return "".join(out), "", payload
     return "regimes", body
 
@@ -406,6 +403,7 @@ def _s_content(payload):
     else:
         sub = f"These conversations were handled by {who} in an undisclosed location."
     extra = "Local regex scan; no prompt text stored or sent."
+    note = f"{pick['label']} identified using basic heuristics; nothing was stored or sent by moatleak."
 
     def body(cid, _p):
         out = [_t(_X0, 300, "In this period,", 52, 700, "rgba(255,255,255,.88)")]
@@ -417,6 +415,10 @@ def _s_content(payload):
         for i, ln in enumerate(lines):
             out.append(_t(_X0, y + i * 66, ln, 56, 800))
         y += len(lines) * 66 + 20
+        note_lines = svg.wrap(note, int(_COLW / (32 * 0.53)))
+        for i, ln in enumerate(note_lines):
+            out.append(_t(_X0, y + 10 + i * 40, ln, 30, 600, "rgba(255,255,255,.88)"))
+        y += 10 + len(note_lines) * 40 + 20
         for i, ln in enumerate(svg.wrap(sub, int(_COLW / (32 * 0.53)))):
             out.append(_t(_X0, y + i * 42, ln, 32, 500, _SOFT))
         return "".join(out), extra, payload
@@ -429,7 +431,7 @@ def slides(payload) -> list[tuple[str, str]]:
     full = [_s_volume, _s_companies, _s_groups, _s_punch, _s_growth, _s_withheld, _s_regimes]
     chosen = [(idx, b) for idx, b in ((i, f(payload)) for i, f in enumerate(full)) if b]
     cb = _s_content(payload)
-    if cb:  # before the regimes slide (which carries the CTA)
+    if cb:  # before the regimes slide (which stays last)
         at = len(chosen) - 1 if chosen and chosen[-1][1][0] == "regimes" else len(chosen)
         chosen.insert(at, (_CONTENT_BG, cb))  # hard-coded background index
     n = len(chosen)

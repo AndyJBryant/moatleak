@@ -21,7 +21,7 @@ def test_export_script_present():
     js = _script(h)
     assert not re.search(r"Task \d", js) and len(js) > 1500
     assert "card-tools" in h and "selftest-result" in js and "toBlob" in js
-    assert "http" not in js
+    assert re.findall(r"https?://[^\s\"']+", js) == ["https://x.com/intent/post?text="]
     assert h.count('data-project-url="https://moatleak.ai/"') == 1
     assert re.search(r'<body[^>]* data-project-url="' + re.escape(PROJECT_URL) + '"', h)
     assert PROJECT_URL == "https://moatleak.ai/"
@@ -77,3 +77,20 @@ def test_card_count_includes_story_content():
                                  "earlier_conversations": 0,
                                  "companies": [{"name": "Alpha", "country": "US", "conversations": 1}]}]}
     assert render(p).count('data-card="') == base + 1
+
+
+def test_share_button():
+    js = _script(render(_build()[0]))
+    assert "Copy text" not in js and "Copied" not in js
+    assert 'mkBtn("Share")' in js
+    for needle in ("navigator.canShare", "navigator.share", "AbortError", '"noopener"'):
+        assert needle in js, needle
+    assert js.count("https://x.com/intent/post?text=") == 1
+    assert '"https://x.com/intent/post?text="+encodeURIComponent(' in js
+    fn = js[js.index("function fallbackShare"):]
+    fn = fn[: fn.index("dl.addEventListener")]
+    assert fn.index("window.open(") < fn.index("download(") < fn.index("copyText(")
+    click = js[js.index('cp.addEventListener("click"'):]
+    click = click[: click.index("bar.appendChild")]
+    assert "new File([r.blob]" in click
+    assert "if(busy)return;" in click

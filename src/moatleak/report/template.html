@@ -23,7 +23,21 @@ table{border-collapse:collapse;width:100%;font-size:14px;background:#F6F4EE}
 th,td{text-align:left;padding:6px 8px;border-bottom:1px solid #d6d3c8;vertical-align:top}
 td.num{text-align:right;font-variant-numeric:tabular-nums}
 a{color:#1f5fbf}
-.cta{display:block;margin:40px 0 0;padding:18px;text-align:center;background:#14151F;color:#fff;border-radius:10px;font-weight:800;font-size:20px;text-decoration:none}
+.brand{display:flex;align-items:center;gap:8px;margin-bottom:18px}
+.brand svg{width:24px;height:24px}
+.brand__word{font-size:20px;font-weight:800}
+.brand__by{font-size:13px;color:#5b5d69}
+.brand__hl{height:22px;width:auto}
+.highlights{font-size:18px;margin:18px 0 8px}
+.cta-band{margin-top:40px;padding:28px;background:#031742;color:#fff;border-radius:10px}
+.cta-by{margin:0;font-size:13px;font-weight:800;letter-spacing:.08em;color:#B9C1D6}
+.cta-by img{height:20px;width:auto;vertical-align:middle}
+.cta-band h2{color:#fff;font-size:30px;line-height:1.15;margin:12px 0}
+.cta-body{color:#B9C1D6;font-size:17px}
+.cta-btn{display:inline-block;background:#fff;color:#031742;font-weight:800;padding:12px 22px;border-radius:999px;text-decoration:none}
+.cta-btn:hover{background:#EFECE3}
+.cta-small{font-size:13px;color:#B9C1D6;margin:0}
+@media(min-width:600px){.cta-band{padding:40px}}
 .pending{opacity:.6}
 .card-tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:8px 14px 12px}
 .card-tools button{font:inherit;font-size:13px;font-weight:600;padding:5px 12px;border:1px solid #14151F;border-radius:6px;background:#fff;color:#14151F;cursor:pointer}
@@ -125,21 +139,51 @@ function legacyCopy(text){
  });
 }
 function projectUrl(){return document.body.getAttribute("data-project-url")||"";}
+var CAN_SHARE=null;
+function canShareFiles(){
+ if(CAN_SHARE===null){
+  try{CAN_SHARE=!!(navigator.canShare&&typeof navigator.share==="function"&&navigator.canShare({files:[new File([new Uint8Array(1)],"probe.png",{type:"image/png"})]}));}
+  catch(e){CAN_SHARE=false;}
+ }
+ return CAN_SHARE;
+}
 function mkBtn(label){var b=document.createElement("button");b.type="button";b.textContent=label;return b;}
 function addTools(f){
  var bar=document.createElement("div");bar.className="card-tools";
- var dl=mkBtn("Download PNG"),cp=mkBtn("Copy text");
+ var dl=mkBtn("Download PNG"),cp=mkBtn("Share");
  var msg=document.createElement("span");msg.className="msg";
  function fail(e){msg.textContent="Failed: "+(e&&e.message||e);}
+ var pre=null;
+ function prerender(){if(!pre&&canShareFiles()){pre=render(f);pre.catch(function(){pre=null;});}return pre;}
+ function done(){cp.textContent="Shared";setTimeout(function(){cp.textContent="Share";},1500);}
+ function fallbackShare(text,popup){
+  if(popup){window.open("https://x.com/intent/post?text="+encodeURIComponent(text),"_blank","noopener");}
+  return Promise.all([download(f),copyText(text)]);
+ }
  dl.addEventListener("click",function(){
   msg.textContent="";dl.disabled=true;
   download(f).then(function(){dl.disabled=false;},function(e){dl.disabled=false;fail(e);});
  });
+ ["pointerenter","focus","touchstart"].forEach(function(ev){cp.addEventListener(ev,prerender);});
+ var busy=false;
  cp.addEventListener("click",function(){
+  if(busy)return;
   msg.textContent="";
-  copyText((headlineText(f)+" "+projectUrl()).trim()).then(function(){
-   cp.textContent="Copied";setTimeout(function(){cp.textContent="Copy text";},1500);
-  },fail);
+  var text=(headlineText(f)+" "+projectUrl()).trim();
+  if(canShareFiles()){
+   busy=true;
+   (prerender()||render(f)).then(function(r){
+    var file=new File([r.blob],"moatleak-"+cardId(f)+".png",{type:"image/png"});
+    return navigator.share({files:[file],text:text});
+   }).then(function(){busy=false;done();},function(e){
+    busy=false;
+    if(e&&e.name==="AbortError"){return;}
+    pre=null;
+    fallbackShare(text,false).then(function(){msg.textContent="Downloaded the image and copied the text.";},fail);
+   });
+   return;
+  }
+  fallbackShare(text,true).then(done,fail);
  });
  bar.appendChild(dl);bar.appendChild(cp);bar.appendChild(msg);
  f.appendChild(bar);
